@@ -56,7 +56,7 @@ Certifique-se de que possui um navegador moderno para visualizar o site corretam
       ***Agora, o TailwindCSS será monitorado e compilado automaticamente enquanto você faz alterações nos arquivos.***
 
 
-5. **Acessar o Projeto** Depois de executar o comando acima, abra o arquivo ***index.html*** no seu navegador para visualizar o projeto em ação.
+5. **Acessar o Projeto** Depois de executar o comando acima, abra o arquivo `index.html` no seu navegador para visualizar o projeto em ação.
 
 ## 📂 Estrutura de Arquivos
 
