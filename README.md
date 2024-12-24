@@ -100,10 +100,10 @@ Certifique-se de que possui um navegador moderno para visualizar o site corretam
 ## 🖼️ Pré-visualização
 
 ### Header
-![Header do site](./assets/hamb-1.png)
+![Header do site](./assets/header.png)
 
 ### Cardápio
-![Menu do site](./assets/hamb-2.png)
+![Menu do site](./assets/cardapio.png)
 
 ## 🤝 Contribuições
 
