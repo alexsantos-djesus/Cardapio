@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin • Cardápio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles/output.css" />
+  </head>
+  <body class="bg-[#0b0e14] text-white">
+    <header
+      class="sticky top-0 z-40 backdrop-blur bg-white/5 border-b border-white/10"
+    >
+      <div class="container h-14 flex items-center justify-between">
+        <h1 class="font-semibold">Admin • Cardápio</h1>
+        <nav class="flex items-center gap-3 text-sm">
+          <a href="index.html" class="chip">Ver loja</a
+          ><button id="btn-export" class="chip">Exportar JSON</button
+          ><label class="chip cursor-pointer"
+            >Importar JSON<input
+              type="file"
+              id="file-import"
+              accept="application/json"
+              class="hidden"
+          /></label>
+        </nav>
+      </div>
+    </header>
+    <main class="container py-8">
+      <div class="flex flex-col md:flex-row items-center gap-3 justify-between">
+        <div class="flex items-center gap-2">
+          <input
+            id="search"
+            type="text"
+            placeholder="Buscar por nome..."
+            class="bg-white/5 border border-white/10 rounded-xl px-3 py-2 outline-none focus:border-brand w-64"
+          /><select
+            id="filter-category"
+            class="bg-white/5 border border-white/10 rounded-xl px-3 py-2 outline-none focus:border-brand"
+          >
+            <option value="">Todas as categorias</option>
+          </select>
+        </div>
+        <div class="flex items-center gap-2">
+          <button id="btn-new" class="btn">
+            <i class="fa-solid fa-plus"></i>Novo item</button
+          ><button id="btn-reset" class="btn-ghost">Repor defaults</button>
+        </div>
+      </div>
+      <div class="mt-6 overflow-x-auto">
+        <table class="min-w-full text-sm">
+          <thead class="text-white/70">
+            <tr
+              class="[&>th]:text-left [&>th]:font-medium [&>th]:py-3 border-b border-white/10"
+            >
+              <th>ID</th>
+              <th>Imagem</th>
+              <th>Nome</th>
+              <th>Categoria</th>
+              <th>Preço</th>
+              <th class="w-[40%]">Descrição</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="grid" class="[&>tr>td]:py-3"></tbody>
+        </table>
+      </div>
+    </main>
+    <div id="modal" class="fixed inset-0 z-50 hidden">
+      <div class="absolute inset-0 bg-black/80 backdrop-blur-sm"></div>
+
+      <div class="relative h-full w-full grid place-items-center p-4">
+        <form
+          id="form"
+          class="max-w-3xl w-full rounded-2xl border border-white/15 bg-[#171b22] shadow-2xl"
+        >
+          <div class="flex items-center justify-between gap-4 px-6 py-4 border-b border-white/10 bg-white/5 rounded-t-2xl">
+            <h3 class="font-semibold">Item do Menu</h3>
+            <button
+              type="button"
+              class="inline-flex items-center justify-center size-9 rounded-xl bg-white/10 hover:bg-white/15 border border-white/15"
+              onclick="document.getElementById('btn-cancel').click()"
+              aria-label="Fechar"
+              title="Fechar"
+            >
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+          </div>
+          <div class="px-6 py-6 grid md:grid-cols-2 gap-4">
+            <label class="text-sm">
+              Nome
+              <input
+                name="name"
+                class="mt-1 w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 outline-none focus:border-brand"
+                required
+              />
+            </label>
+
+            <label class="text-sm">
+              Categoria
+              <input
+                name="category"
+                class="mt-1 w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 outline-none focus:border-brand"
+                required
+              />
+            </label>
+
+            <label class="text-sm">
+              Preço (R$)
+              <input
+                step="0.01"
+                type="number"
+                name="price"
+                class="mt-1 w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 outline-none focus:border-brand"
+                required
+              />
+            </label>
+
+            <label class="text-sm">
+              Imagem (URL)
+              <input
+                name="image"
+                class="mt-1 w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 outline-none focus:border-brand"
+                placeholder="assets/hamb-1.png"
+                required
+              />
+            </label>
+
+            <label class="text-sm md:col-span-2">
+              Descrição
+              <textarea
+                name="desc"
+                rows="3"
+                class="mt-1 w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 outline-none focus:border-brand"
+              ></textarea>
+            </label>
+          </div>
+          <div class="flex items-center justify-end gap-2 px-6 py-4 border-t border-white/10 rounded-b-2xl">
+            <button type="button" id="btn-cancel" class="btn-ghost">
+              Cancelar
+            </button>
+            <button class="btn" id="btn-save" type="submit">
+              Salvar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      const DEFAULTS_PLACEHOLDER = [];
+    </script>
+    <script src="./admin.js"></script>
+  </body>
+</html>
