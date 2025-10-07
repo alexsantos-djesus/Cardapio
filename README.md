@@ -9,6 +9,7 @@ Pensado para **portfolio/vendas**: rápido de adaptar, bonito e com animações 
 
 ## 🧭 Sumário
 - [O que tem de novo (v1.2)](#-o-que-tem-de-novo-v12)
+- [Screenshots](#-screenshots)
 - [Demo local](#-demo-local)
 - [Estrutura do projeto](#-estrutura-do-projeto)
 - [Configuração rápida](#-configuração-rápida)
@@ -37,6 +38,30 @@ Pensado para **portfolio/vendas**: rápido de adaptar, bonito e com animações 
 
 ---
 
+## 📸 Screenshots
+
+> Coloque suas imagens em `assets/` com os nomes abaixo.
+
+<p align="center">
+  <img src="assets/header.png" alt="Hero — Cardápio Demo" width="980">
+</p>
+
+<p align="center">
+  <img src="assets/cardapio.png" alt="Seção de cardápio — Cardápio Demo" width="980">
+</p>
+
+<details>
+  <summary>Ver lado a lado (opcional)</summary>
+
+  <p align="center">
+    <img src="assets/header.png" alt="Hero" width="49%">
+    <img src="assets/cardapio.png" alt="Cardápio" width="49%">
+  </p>
+
+</details>
+
+---
+
 ## 🚀 Demo local
 
 1. **Baixe o ZIP** e extraia.
@@ -53,22 +78,23 @@ Pensado para **portfolio/vendas**: rápido de adaptar, bonito e com animações 
 
 ```
 .
-├── index.html          # Landing + cardápio + depoimentos + modal do carrinho
-├── admin.html          # Painel administrativo para gerir os itens
-├── script.js           # Lógica do cardápio, carrinho, depoimentos e animações
-├── admin.js            # Lógica do painel admin (import/export JSON, CRUD, filtros)
+├── index.html
+├── admin.html
+├── script.js
+├── admin.js
 ├── styles/
-│   ├── input.css       # (opcional) fonte do Tailwind, se quiser rebuild
-│   └── output.css      # CSS gerado e pronto para uso
+│   ├── input.css
+│   └── output.css
 ├── assets/
-│   ├── bg.png          # Background do hero
-│   ├── hamb-*.png      # Imagens do catálogo
-│   ├── ...             # Outras imagens
+│   ├── header.png
+│   ├── cardapio.png
+│   ├── bg.png
+│   ├── hamb-*.png
 │   └── avatars/
 │       ├── cliente-1.jpg
 │       ├── cliente-2.jpg
 │       └── cliente-3.jpg
-└── tailwind.config.js  # Tokens e animações utilitárias (se rebuildar o CSS)
+└── tailwind.config.js
 ```
 
 ---
@@ -81,9 +107,9 @@ Pensado para **portfolio/vendas**: rápido de adaptar, bonito e com animações 
   ```
 - **Open Graph:** ajuste o título/descrição/imagem no `<head>` do `index.html`.
 - **Catálogo:** edite o array `PRODUCTS` (id, name, price, image, category, desc).
-- **Depoimentos:** coloque as fotos em `assets/avatars/cliente-*.jpg` e edite o array `TESTIMONIALS` (name, role, text, avatar).
+- **Depoimentos:** coloque as fotos em `assets/avatars/cliente-*.jpg` e edite o array `TESTIMONIALS`.
 
-> Dica: mantenha **nomes de arquivos sem espaço** e otimize imagens (webp/png comprimido) para melhor desempenho.
+> Dica: otimize as imagens (`.webp`/`.png`) e evite espaços no nome do arquivo.
 
 ---
 
@@ -95,64 +121,55 @@ Abra `admin.html` para:
 - **Exportar JSON** dos itens ou **Importar JSON** salvo;
 - **Repor defaults** (se `DEFAULTS_PLACEHOLDER` estiver configurado).
 
-O painel grava/usa os dados **em memória** (no código). Integração com banco/planilha pode ser feita depois, se necessário.
-
 ---
 
 ## 🎨 Build do CSS (Tailwind)
 
 O projeto já inclui `styles/output.css`. Só refaça o build se mudar tokens/animações.
 
-1. Instale Tailwind (opcional, em ambiente de dev):
-   ```bash
-   npm i -D tailwindcss
-   npx tailwindcss init -p
-   ```
-2. Rode o build/Watch:
-   ```bash
-   npx tailwindcss -i ./styles/input.css -o ./styles/output.css --watch
-   ```
+```bash
+npm i -D tailwindcss
+npx tailwindcss -i ./styles/input.css -o ./styles/output.css --watch
+```
 
-No `tailwind.config.js` há **keyframes** usados no projeto (fade, pop, pulse, ripple).
+O `tailwind.config.js` contém **keyframes** e **animations** usados.
 
 ---
 
 ## ✍️ Dicas de conteúdo
 
-- **Texto do herói:** curto, direto e com uma palavra-chave destacada.
-- **Imagens dos produtos:** proporção 4:3 ou quadrada; use `object-contain` para não cortar.
-- **Categorias curtas:** ex.: *Burgers*, *Acompanhamentos*, *Bebidas*.
-- **Depoimentos reais:** uma frase forte, nome curto e função/empresa.
-- **Acessibilidade:** alt nas imagens e contraste suficiente (mantido no tema).
+- **Texto do herói:** curto e direto, com palavra-chave destacada.
+- **Imagens:** 4:3 ou quadradas; `object-contain` pra não cortar.
+- **Depoimentos:** frase forte + nome curto + função/empresa.
+- **Acessibilidade:** `alt` nas imagens e bom contraste.
 
 ---
 
 ## ☁️ Deploy
 
 - **Netlify:** arraste a pasta ou conecte o repositório.
-- **Vercel:** novo projeto → import da pasta.
-- **GitHub Pages:** branch com `/` na raiz; habilite Pages.
-- **cPanel/S3/FTP:** faça upload dos arquivos (é estático).
+- **Vercel:** import do repo. Se pedir “Output Directory”, use **`.`** ou configure `vercel.json`.
+- **GitHub Pages:** branch com os arquivos na raiz; habilite Pages.
 
 ---
 
 ## 📒 Changelog — v1.2
 
-- Hero com **stagger por palavra**, gradiente/shine no destaque e **parallax** suave.
-- **Ripple** e **magnetic hover** nos botões principais.
-- **Modal** do carrinho com animações *fade/pop*.
-- **Depoimentos** controlados por avatar com animação de entrada.
-- **Reveal on Scroll** com *fallback* (não quebra em browsers antigos).
-- Ajustes de UX, toasts e micro animações (contador do carrinho, imagens com lazy-loading).
+- Hero com **stagger por palavra**, gradiente/shine e **parallax** suave.
+- **Ripple** e *magnetic hover* nos botões.
+- **Modal** do carrinho com *fade/pop*.
+- **Depoimentos** por avatar com fade-in.
+- **Reveal on Scroll** com fallback.
+- Micro animações e `lazy-loading`.
 
 ---
 
 ## 🧾 Licença
 
-[MIT](https://opensource.org/licenses/MIT) — use livremente em portfolios e projetos comerciais. Créditos para ícones e libs de terceiros (Font Awesome, Toastify e TailwindCSS).
+[MIT](https://opensource.org/licenses/MIT). Ícones/libs: Font Awesome, Toastify, TailwindCSS.
 
 ---
 
 ### Suporte & ideias
 
-Ficou com dúvida ou quer levar isso para um **cardápio real** (com painel + backend)? Abra uma issue ou entre em contato. :)
+Ficou com dúvida ou quer levar isso para um **cardápio real** (com painel + backend)? Abra uma issue ou chame. :)
