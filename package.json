@@ -1,17 +1,12 @@
 {
   "name": "cardapio",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
   "scripts": {
-    "dev": "npx tailwindcss -i ./styles/style.css -o ./styles/output.css --watch",
-    "build": "npx tailwindcss -i ./styles/style.css -o ./styles/output.css --minify",
-    "build:css": "node ./node_modules/tailwindcss/lib/cli.js -i ./styles/input.css -o ./styles/output.css --minify",
+    "dev": "tailwindcss -i ./styles/style.css -o ./styles/output.css --watch",
+    "build": "tailwindcss -i ./styles/style.css -o ./styles/output.css --minify",
+    "build:css": "node ./node_modules/tailwindcss/lib/cli.js -i ./styles/style.css -o ./styles/output.css --minify",
     "vercel-build": "npm run build:css"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "devDependencies": {
     "tailwindcss": "^3.4.15"
   }
