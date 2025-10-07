@@ -34,13 +34,9 @@ Pensado para **portfolio/vendas**: rápido de adaptar, bonito e com animações 
 - **Reveal on Scroll** (IntersectionObserver) com **fallback** para navegadores antigos.
 - **Qualidade de vida:** imagens com `loading="lazy"`, toasts, contagem do carrinho pulsando, etc.
 
-> A versão mantém compatibilidade: é só substituir os arquivos na pasta e atualizar as imagens/JSON conforme necessário.
-
 ---
 
 ## 📸 Screenshots
-
-> Coloque suas imagens em `assets/` com os nomes abaixo.
 
 <p align="center">
   <img src="assets/header.png" alt="Hero — Cardápio Demo" width="980">
@@ -55,7 +51,8 @@ Pensado para **portfolio/vendas**: rápido de adaptar, bonito e com animações 
 
   <p align="center">
     <img src="assets/header.png" alt="Hero" width="49%">
-    <img src="assets/cardapio.png" alt="Cardápio" width="49%">
+    <img src="assets/cardapio1.png" alt="Cardápio" width="49%">
+    <img src="assets/cardapio2.png" alt="Cardápio" width="49%">
   </p>
 
 </details>
@@ -70,7 +67,6 @@ Pensado para **portfolio/vendas**: rápido de adaptar, bonito e com animações 
    - Node: `npx http-server . -p 5500`
 3. Acesse: `http://localhost:5500/index.html`
 
-> O projeto é **estático**. Funciona local e em qualquer host de arquivos estáticos (Netlify, Vercel, GitHub Pages, etc.).
 
 ---
 
