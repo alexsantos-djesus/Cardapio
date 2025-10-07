@@ -52,7 +52,7 @@ Pensado para **portfolio/vendas**: rápido de adaptar, bonito e com animações 
   <p align="center">
     <img src="assets/header.png" alt="Hero" width="49%">
     <img src="assets/cardapio1.png" alt="Cardápio" width="49%">
-    <img src="assets/cardapio2.png" alt="Cardápio" width="49%">
+    <img src="assets/cardapio2.png" alt="Cardápio2" width="49%">
   </p>
 
 </details>
