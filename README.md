@@ -46,6 +46,10 @@ Pensado para **portfolio/vendas**: rápido de adaptar, bonito e com animações 
   <img src="assets/cardapio1.png" alt="Seção de cardápio — Cardápio Demo" width="980">
 </p>
 
+<p align="center">
+  <img src="assets/depoimentos.png" alt="Seção de depoimentos — Cardápio Demo" width="980">
+</p>
+
 <details>
   <summary>Ver lado a lado (opcional)</summary>
 
@@ -53,6 +57,7 @@ Pensado para **portfolio/vendas**: rápido de adaptar, bonito e com animações 
     <img src="assets/header.png" alt="Hero" width="49%">
     <img src="assets/cardapio1.png" alt="Cardápio" width="49%">
     <img src="assets/cardapio2.png" alt="Cardápio2" width="49%">
+    <img src="assets/depoimentos.png" alt="Cardápio2" width="49%">
   </p>
 
 </details>
