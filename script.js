@@ -326,20 +326,43 @@ function openCart() {
   cartOverlay?.classList.add("animate-fade-in");
   cartPanel?.classList.add("animate-pop");
 }
+
 function closeCart() {
+  // remove animações “de entrada”
   cartOverlay?.classList.remove("animate-fade-in");
   cartPanel?.classList.remove("animate-pop");
+
+  // adiciona animações “de saída”
   cartOverlay?.classList.add("animate-fade-out");
   cartPanel?.classList.add("animate-pop-out");
+
+  // fallback: se animationend não vier, fecha em 300ms
+  const done = () => cartModal.classList.add("hidden");
+  let finished = false;
+
   (cartPanel || cartModal).addEventListener(
     "animationend",
-    () => cartModal.classList.add("hidden"),
+    () => {
+      finished = true;
+      done();
+    },
     { once: true }
   );
+
+  setTimeout(() => {
+    if (!finished) done();
+  }, 300);
 }
 
+// abre/fecha
 cartBtn.addEventListener("click", openCart);
-closeModalBtn.addEventListener("click", closeCart);
+
+// delegação: se clicar no X (ou no ícone dentro dele), fecha
+document.addEventListener("click", (e) => {
+  if (e.target.closest("#close-modal-btn")) closeCart();
+});
+
+// clicar fora fecha
 cartModal.addEventListener("click", (e) => {
   if (e.target === cartModal || e.target === cartOverlay) closeCart();
 });
