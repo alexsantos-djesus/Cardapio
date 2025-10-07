@@ -1,122 +1,158 @@
-# Cardápio Virtual
+# Cardápio Demo — Portfolio (v1.2)
 
-Este projeto é um site de cardápio interativo para um restaurante de hambúrgueres chamado **Burguer**. Ele permite que os clientes visualizem o menu, adicionem itens ao carrinho e façam pedidos com facilidade.
+Uma landing e um cardápio digital estático com **carrinho**, **checkout via WhatsApp** e **área administrativa** de itens.  
+Pensado para **portfolio/vendas**: rápido de adaptar, bonito e com animações modernas.
 
-## 🚀 Funcionalidades
-
-- **Exibição do cardápio:** Menu organizado com imagens, descrições e preços de hambúrgueres e bebidas.
-- **Carrinho de compras:** Adicione itens ao carrinho e veja o total em tempo real.
-- **Integração com WhatsApp** Envio do pedido para o WhatsApp.
-- **Horário de funcionamento** Verificação do horário de funcionamento do restaurante (18h às 22h).
-- **Interface responsiva:** Design adaptado para dispositivos móveis e desktops.
-- **Finalização do pedido:** Campo para inserir endereço e concluir o pedido.
-
-## 🛠️ Tecnologias Utilizadas
-
-- **HTML5:** Estrutura principal do site.
-- **CSS (Tailwind CSS):** Estilização da página com classes utilitárias.
-- **JavaScript:** Funcionalidades interativas como o carrinho de compras.
-- **Toastify.js:** Notificações visuais.
-- **Font Awesome:** Ícones utilizados no site.
-
-## 📚 Pré-requisitos
-
-Certifique-se de que possui um navegador moderno para visualizar o site corretamente.
-
-- **Node.js** (https://nodejs.org) e **npm** instalados.
-
-## ⚙️ Configuração e Execução
-
-### Passo a passo
-
-1. **Abra o terminal** no seu computador.
-
-
-2. **Clone o repositório** para sua máquina local. Copie o link abaixo e cole no terminal:
-     ```bash
-   git clone https://github.com/alezin54/cardapio.git
-     ```
-    ```bash
-      cd cardapio-virtual
-    ```
-      ***Agora você está dentro do projeto e pode começar a trabalhar nele.***
-
-  
-3. **Instalar as Dependências** Para que o projeto funcione corretamente, você precisa instalar as dependências. Execute o seguinte comando:
-     ```bash
-     npm install
-    ```
-      ***Isso irá baixar todas as bibliotecas necessárias listadas no arquivo package.json.***
-
-
-4. **Iniciar o Desenvolvimento** Para iniciar o servidor e começar a compilar o código do TailwindCSS em tempo real, execute o seguinte comando:
-     ```bash
-      npm run dev
-    ```
-      ***Agora, o TailwindCSS será monitorado e compilado automaticamente enquanto você faz alterações nos arquivos.***
-
-
-5. **Acessar o Projeto** Depois de executar o comando acima, abra o arquivo `index.html` no seu navegador para visualizar o projeto em ação.
-
-## 📂 Estrutura de Arquivos
-
-    cardapio-virtual/
-    │
-    ├── assets/               # Imagens e outros arquivos estáticos
-    ├── styles/               # Arquivos CSS
-    │   ├── style.css         # Arquivo CSS de entrada
-    │   ├── output.css        # Arquivo CSS gerado pelo Tailwind
-    │
-    ├── script.js             # Código JavaScript principal
-    ├── tailwind.config.js    # Configuração do TailwindCSS
-    ├── package.json          # Arquivo de dependências e scripts npm
-    ├── index.html            # Página inicial
-    └── README.md             # Documentação do projeto
-
-## 🌟 Personalização
-
-- Substitua as imagens em `./assets` para utilizar seu próprio conteúdo visual.
-- Atualize os dados do menu diretamente no arquivo `index.html`.
-- Modifique as cores e estilos no arquivo CSS localizado em `styles/output.css`.
-
-## 📞 Integração com WhatsApp
-
-  - Os pedidos são enviados para o WhatsApp no número configurado no código.
-  - Certifique-se de que o WhatsApp Web esteja funcionando para receber os pedidos.
-
-## 🕒 Horários de Funcionamento
-
-  - O restaurante funciona das 18h às 22h.
-  - Se estiver fora desse horário, um aviso será exibido e a funcionalidade de checkout será desativada.
-
-
-## 🌟 Melhorias Futuras
-  - Implementar persistência do carrinho usando LocalStorage.
-  - Criar uma interface administrativa para gerenciar itens do menu.
-  - Melhorar a responsividade para dispositivos móveis.
-  - Adicionar suporte multi-idioma.
-
-
-## 🖼️ Pré-visualização
-
-### Header
-![Header do site](./assets/header.png)
-
-### Cardápio
-![Menu do site](./assets/cardapio.png)
-
-## 🤝 Contribuições
-
-Contribuições são bem-vindas! Sinta-se à vontade para abrir issues e enviar pull requests.
-
-## 📝 Licença
-
-Este projeto está sob a licença MIT. Veja o arquivo `LICENSE` para mais detalhes.
-
-
-    Esse `README.md` fornece uma visão geral clara do projeto, detalhando as funcionalidades, instruções de instalação e ideias para melhorias futuras. Se precisar de mais personalizações, é só avisar! 😊
-
+> **Versão:** 1.2  •  **Data:** 2025-10-06
 
 ---
 
-**Feito com ❤️ por Alex santos.**
+## 🧭 Sumário
+- [O que tem de novo (v1.2)](#-o-que-tem-de-novo-v12)
+- [Demo local](#-demo-local)
+- [Estrutura do projeto](#-estrutura-do-projeto)
+- [Configuração rápida](#-configuração-rápida)
+- [Admin (CRUD de itens)](#-admin-crud-de-itens)
+- [Build do CSS (Tailwind)](#-build-do-css-tailwind)
+- [Dicas de conteúdo](#-dicas-de-conteúdo)
+- [Deploy](#-deploy)
+- [Licença](#-licença)
+
+---
+
+## ✨ O que tem de novo (v1.2)
+
+- **Hero cinematográfico**
+  - Animação *stagger* por palavra no título
+  - Destaque “**cardápio digital**” com gradiente/shine
+  - Parallax leve do background
+  - CTAs com *magnetic hover* + *ripple*
+  - Indicador “scroll” sutil
+- **Depoimentos interativos:** fotos embaixo; conteúdo aparece ao clicar; avatar selecionado pulsa.
+- **Modal do carrinho** sólido com **fade-in/out** e **pop/pop-out**.
+- **Reveal on Scroll** (IntersectionObserver) com **fallback** para navegadores antigos.
+- **Qualidade de vida:** imagens com `loading="lazy"`, toasts, contagem do carrinho pulsando, etc.
+
+> A versão mantém compatibilidade: é só substituir os arquivos na pasta e atualizar as imagens/JSON conforme necessário.
+
+---
+
+## 🚀 Demo local
+
+1. **Baixe o ZIP** e extraia.
+2. Abra a pasta no VS Code e use **Live Server** *ou* rode um servidor simples:
+   - Python: `python -m http.server 5500`
+   - Node: `npx http-server . -p 5500`
+3. Acesse: `http://localhost:5500/index.html`
+
+> O projeto é **estático**. Funciona local e em qualquer host de arquivos estáticos (Netlify, Vercel, GitHub Pages, etc.).
+
+---
+
+## 🗂 Estrutura do projeto
+
+```
+.
+├── index.html          # Landing + cardápio + depoimentos + modal do carrinho
+├── admin.html          # Painel administrativo para gerir os itens
+├── script.js           # Lógica do cardápio, carrinho, depoimentos e animações
+├── admin.js            # Lógica do painel admin (import/export JSON, CRUD, filtros)
+├── styles/
+│   ├── input.css       # (opcional) fonte do Tailwind, se quiser rebuild
+│   └── output.css      # CSS gerado e pronto para uso
+├── assets/
+│   ├── bg.png          # Background do hero
+│   ├── hamb-*.png      # Imagens do catálogo
+│   ├── ...             # Outras imagens
+│   └── avatars/
+│       ├── cliente-1.jpg
+│       ├── cliente-2.jpg
+│       └── cliente-3.jpg
+└── tailwind.config.js  # Tokens e animações utilitárias (se rebuildar o CSS)
+```
+
+---
+
+## ⚙️ Configuração rápida
+
+- **Telefone do WhatsApp:** no `script.js` altere `WHATS_PHONE`:
+  ```js
+  const WHATS_PHONE = "+55DDDSEUNUMERO";
+  ```
+- **Open Graph:** ajuste o título/descrição/imagem no `<head>` do `index.html`.
+- **Catálogo:** edite o array `PRODUCTS` (id, name, price, image, category, desc).
+- **Depoimentos:** coloque as fotos em `assets/avatars/cliente-*.jpg` e edite o array `TESTIMONIALS` (name, role, text, avatar).
+
+> Dica: mantenha **nomes de arquivos sem espaço** e otimize imagens (webp/png comprimido) para melhor desempenho.
+
+---
+
+## 🛠 Admin (CRUD de itens)
+
+Abra `admin.html` para:
+- **Criar/editar/remover** itens do cardápio;
+- **Filtrar por categoria** e **buscar por nome**;
+- **Exportar JSON** dos itens ou **Importar JSON** salvo;
+- **Repor defaults** (se `DEFAULTS_PLACEHOLDER` estiver configurado).
+
+O painel grava/usa os dados **em memória** (no código). Integração com banco/planilha pode ser feita depois, se necessário.
+
+---
+
+## 🎨 Build do CSS (Tailwind)
+
+O projeto já inclui `styles/output.css`. Só refaça o build se mudar tokens/animações.
+
+1. Instale Tailwind (opcional, em ambiente de dev):
+   ```bash
+   npm i -D tailwindcss
+   npx tailwindcss init -p
+   ```
+2. Rode o build/Watch:
+   ```bash
+   npx tailwindcss -i ./styles/input.css -o ./styles/output.css --watch
+   ```
+
+No `tailwind.config.js` há **keyframes** usados no projeto (fade, pop, pulse, ripple).
+
+---
+
+## ✍️ Dicas de conteúdo
+
+- **Texto do herói:** curto, direto e com uma palavra-chave destacada.
+- **Imagens dos produtos:** proporção 4:3 ou quadrada; use `object-contain` para não cortar.
+- **Categorias curtas:** ex.: *Burgers*, *Acompanhamentos*, *Bebidas*.
+- **Depoimentos reais:** uma frase forte, nome curto e função/empresa.
+- **Acessibilidade:** alt nas imagens e contraste suficiente (mantido no tema).
+
+---
+
+## ☁️ Deploy
+
+- **Netlify:** arraste a pasta ou conecte o repositório.
+- **Vercel:** novo projeto → import da pasta.
+- **GitHub Pages:** branch com `/` na raiz; habilite Pages.
+- **cPanel/S3/FTP:** faça upload dos arquivos (é estático).
+
+---
+
+## 📒 Changelog — v1.2
+
+- Hero com **stagger por palavra**, gradiente/shine no destaque e **parallax** suave.
+- **Ripple** e **magnetic hover** nos botões principais.
+- **Modal** do carrinho com animações *fade/pop*.
+- **Depoimentos** controlados por avatar com animação de entrada.
+- **Reveal on Scroll** com *fallback* (não quebra em browsers antigos).
+- Ajustes de UX, toasts e micro animações (contador do carrinho, imagens com lazy-loading).
+
+---
+
+## 🧾 Licença
+
+[MIT](https://opensource.org/licenses/MIT) — use livremente em portfolios e projetos comerciais. Créditos para ícones e libs de terceiros (Font Awesome, Toastify e TailwindCSS).
+
+---
+
+### Suporte & ideias
+
+Ficou com dúvida ou quer levar isso para um **cardápio real** (com painel + backend)? Abra uma issue ou entre em contato. :)
