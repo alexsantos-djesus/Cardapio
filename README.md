@@ -43,7 +43,7 @@ Pensado para **portfolio/vendas**: rápido de adaptar, bonito e com animações 
 </p>
 
 <p align="center">
-  <img src="assets/cardapio.png" alt="Seção de cardápio — Cardápio Demo" width="980">
+  <img src="assets/cardapio1.png" alt="Seção de cardápio — Cardápio Demo" width="980">
 </p>
 
 <details>
