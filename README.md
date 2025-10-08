@@ -42,53 +42,29 @@ Pensado para **portfolio/vendas**: rápido de adaptar, bonito e com animações 
 **DESKTOP**
 
 <p align="center">
-  <img src="assets/header.png" alt="Hero — Cardápio Demo" width="980">
+  <img src="assets/header.png"        alt="Hero — Cardápio Demo"        width="48%">
+  <img src="assets/cardapio1.png"     alt="Cardápio — página 1"          width="48%">
 </p>
-
 <p align="center">
-  <img src="assets/cardapio1.png" alt="Cardápio — Cardápio Demo" width="980">
+  <img src="assets/depoimentos.png"   alt="Seção de depoimentos"         width="48%">
+  <img src="assets/carrinho.png"      alt="Carrinho"                     width="48%">
 </p>
-
 <p align="center">
-  <img src="assets/depoimentos.png" alt="Seção de depoimentos — Cardápio Demo" width="980">
-</p>
-
-<p align="center">
-  <img src="assets/carrinho.png" alt="Carrinho — Cardápio Demo" width="980">
-</p>
-
-<p align="center">
-  <img src="assets/dados-pedido.png" alt="Dados pedido — Cardápio Demo" width="980">
-</p>
-
-<p align="center">
-  <img src="assets/demo.jpeg" alt="Demostração — Cardápio Demo" width="980">
+  <img src="assets/dados-pedido.png"  alt="Dados do pedido"              width="48%">
+  <img src="assets/demo.jpeg"         alt="Demostração"                  width="48%">
 </p>
 
 **MOBILE**
 
 <p align="center">
-  <img src="assets/header-m.jpeg" alt="Hero — Cardápio Demo m" width="980">
+  <img src="assets/header-m.jpeg"     alt="Hero mobile"                  width="32%">
+  <img src="assets/cardapio-m.jpeg"   alt="Cardápio mobile"              width="32%">
+  <img src="assets/depoimentos-m.jpeg"alt="Depoimentos mobile"           width="32%">
 </p>
-
 <p align="center">
-  <img src="assets/cardapiom.jpeg" alt="Cardápio — Cardápio Demo m" width="980">
-</p>
-
-<p align="center">
-  <img src="assets/depoimentos-m.jpeg" alt="Seção de depoimentos — Cardápio Demo m" width="980">
-</p>
-
-<p align="center">
-  <img src="assets/carrinho-m.jpeg" alt="Carrinho — Cardápio Demo m" width="980">
-</p>
-
-<p align="center">
-  <img src="assets/dados-m.jpeg" alt="Dados pedido — Cardápio Demo m" width="980">
-</p>
-
-<p align="center">
-  <img src="assets/demo.jpeg" alt="Demostração — Cardápio Demo m" width="980">
+  <img src="assets/carrinho-m.jpeg"   alt="Carrinho mobile"              width="32%">
+  <img src="assets/dados-m.jpeg"      alt="Dados mobile"                 width="32%">
+  <img src="assets/demo.jpeg"         alt="Extra mobile"                 width="32%">
 </p>
 
 <details>
@@ -110,7 +86,7 @@ Pensado para **portfolio/vendas**: rápido de adaptar, bonito e com animações 
 
   <p align="center">
       <img src="assets/header-m.jpeg" alt="Hero-m" width="49%">
-      <img src="assets/cardapiom.jpeg" alt="Cardápio-m" width="49%">
+      <img src="assets/cardapio-m.jpeg" alt="Cardápio-m" width="49%">
       <img src="assets/depoimentos-m.jpeg" alt="Seção de depoimentos-m" width="49%">
       <img src="assets/carrinho-m.jpeg" alt="Carrinho-m" width="49%">
       <img src="assets/dados-m.jpeg" alt="Dados pedido-m" width="49%">
