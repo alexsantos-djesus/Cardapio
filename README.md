@@ -110,7 +110,7 @@ Pensado para **portfolio/vendas**: rápido de adaptar, bonito e com animações 
 
   <p align="center">
       <img src="assets/header-m.jpeg" alt="Hero-m" width="49%">
-      <img src="assets/cardapio-m.jpegg" alt="Cardápio-m" width="49%">
+      <img src="assets/cardapiom.jpeg" alt="Cardápio-m" width="49%">
       <img src="assets/depoimentos-m.jpeg" alt="Seção de depoimentos-m" width="49%">
       <img src="assets/carrinho-m.jpeg" alt="Carrinho-m" width="49%">
       <img src="assets/dados-m.jpeg" alt="Dados pedido-m" width="49%">
