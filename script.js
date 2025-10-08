@@ -17,8 +17,8 @@ const ctaWhatsapp = document.getElementById("cta-whatsapp");
 
 // Frete simples (ajuste à vontade)
 const DELIVERY_CONFIG = {
-  defaultFee: 8, // R$ 8,00 de entrega
-  freeAbove: 80, // frete grátis acima de R$ 80
+  defaultFee: 8,   // R$ 8,00 de entrega
+  freeAbove: 80    // frete grátis acima de R$ 80
 };
 
 // Steps do modal
@@ -56,105 +56,27 @@ const elGrand = document.getElementById("checkout-grand-total");
 
 // Config do WhatsApp
 const WHATS_PHONE = "+5571992620696";
-const currency = new Intl.NumberFormat("pt-BR", {
-  style: "currency",
-  currency: "BRL",
-});
-ctaWhatsapp &&
-  (ctaWhatsapp.href = `https://wa.me/${WHATS_PHONE.replace(/\D/g, "")}`);
+const currency = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
+ctaWhatsapp && (ctaWhatsapp.href = `https://wa.me/${WHATS_PHONE.replace(/\D/g, "")}`);
 
 // ===================
 //        DATA
 // ===================
 const PRODUCTS = [
-  {
-    id: 1,
-    name: "Clássico da Casa",
-    price: 24.9,
-    image: "assets/hamb-1.png",
-    category: "Burgers",
-    desc: "Pão brioche, blend 150g, queijo, alface e tomate.",
-  },
-  {
-    id: 2,
-    name: "Duplo Smash",
-    price: 31.9,
-    image: "assets/hamb-2.png",
-    category: "Burgers",
-    desc: "Dois smash 90g, cheddar duplo e picles.",
-  },
-  {
-    id: 3,
-    name: "Chicken Crispy",
-    price: 27.9,
-    image: "assets/hamb-3.png",
-    category: "Burgers",
-    desc: "Frango empanado, maionese da casa e alface.",
-  },
-  {
-    id: 4,
-    name: "Veggie Green",
-    price: 26.0,
-    image: "assets/hamb-4.png",
-    category: "Veggie",
-    desc: "Grão-de-bico, abacate e molho tahine.",
-  },
-  {
-    id: 5,
-    name: "Batata Rústica",
-    price: 14.0,
-    image: "assets/batatas-rustica.jpg",
-    category: "Acompanhamentos",
-    desc: "Batatas com páprica e alecrim.",
-  },
-  {
-    id: 6,
-    name: "Onion Rings",
-    price: 16.0,
-    image: "assets/onion-rings.jpg",
-    category: "Acompanhamentos",
-    desc: "Crocantes e douradas.",
-  },
-  {
-    id: 7,
-    name: "Refrigerante Lata",
-    price: 7.0,
-    image: "assets/refri-1.png",
-    category: "Bebidas",
-    desc: "350ml",
-  },
-  {
-    id: 8,
-    name: "Suco Natural",
-    price: 9.0,
-    image: "assets/suco-natural.png",
-    category: "Bebidas",
-    desc: "Laranja ou limão.",
-  },
+  { id:1, name:"Clássico da Casa", price:24.9, image:"assets/hamb-1.png", category:"Burgers", desc:"Pão brioche, blend 150g, queijo, alface e tomate." },
+  { id:2, name:"Duplo Smash", price:31.9, image:"assets/hamb-2.png", category:"Burgers", desc:"Dois smash 90g, cheddar duplo e picles." },
+  { id:3, name:"Chicken Crispy", price:27.9, image:"assets/hamb-3.png", category:"Burgers", desc:"Frango empanado, maionese da casa e alface." },
+  { id:4, name:"Veggie Green", price:26.0, image:"assets/hamb-4.png", category:"Veggie", desc:"Grão-de-bico, abacate e molho tahine." },
+  { id:5, name:"Batata Rústica", price:14.0, image:"assets/batatas-rustica.jpg", category:"Acompanhamentos", desc:"Batatas com páprica e alecrim." },
+  { id:6, name:"Onion Rings", price:16.0, image:"assets/onion-rings.jpg", category:"Acompanhamentos", desc:"Crocantes e douradas." },
+  { id:7, name:"Refrigerante Lata", price:7.0, image:"assets/refri-1.png", category:"Bebidas", desc:"350ml" },
+  { id:8, name:"Suco Natural", price:9.0, image:"assets/suco-natural.png", category:"Bebidas", desc:"Laranja ou limão." },
 ];
 
 const TESTIMONIALS = [
-  {
-    id: 1,
-    name: "Cliente 1",
-    role: "Hamburgueria do Bairro",
-    text: "Ficou lindo no celular e aumentou nossos pedidos em 30%!",
-    avatar: "assets/avatars/cliente-1.jpg",
-  },
-  {
-    id: 2,
-    name: "Cliente 2",
-    role: "Food Truck 71",
-    text: "Fácil de editar e publicar, perfeito pra eventos!",
-    avatar: "assets/avatars/cliente-2.jpg",
-  },
-  {
-    id: 3,
-    name: "Cliente 3",
-    role: "Pizzaria da Praça",
-    text: "Integração com WhatsApp agilizou muito o atendimento.",
-    avatar: "assets/avatars/cliente-3.jpg",
-  },
+  { id:1, name:"Cliente 1", role:"Hamburgueria do Bairro", text:"Ficou lindo no celular e aumentou nossos pedidos em 30%!", avatar:"assets/avatars/cliente-1.jpg" },
+  { id:2, name:"Cliente 2", role:"Food Truck 71", text:"Fácil de editar e publicar, perfeito pra eventos!", avatar:"assets/avatars/cliente-2.jpg" },
+  { id:3, name:"Cliente 3", role:"Pizzaria da Praça", text:"Integração com WhatsApp agilizou muito o atendimento.", avatar:"assets/avatars/cliente-3.jpg" },
 ];
 
 // ===================
@@ -181,14 +103,9 @@ var observer = (function () {
     { threshold: 0.15 }
   );
 })();
-document
-  .querySelectorAll("[data-animate]")
-  .forEach((el) => observer.observe(el));
+document.querySelectorAll("[data-animate]").forEach((el) => observer.observe(el));
 
-const CATEGORIES = [
-  "Todos",
-  ...Array.from(new Set(PRODUCTS.map((p) => p.category))),
-];
+const CATEGORIES = ["Todos", ...Array.from(new Set(PRODUCTS.map((p) => p.category)))];
 
 // ===================
 //  CATEGORY CHIPS
@@ -197,9 +114,7 @@ function renderChips() {
   if (!chips) return;
   chips.innerHTML = CATEGORIES.map(
     (cat) => `
-    <button class="chip smooth will hover:-translate-y-0.5 active:scale-95 ${
-      cat === activeCategory ? "border-brand bg-white/10" : ""
-    }" data-cat="${cat}">
+    <button class="chip smooth will hover:-translate-y-0.5 active:scale-95 ${cat===activeCategory?"border-brand bg-white/10":""}" data-cat="${cat}">
       ${cat}
     </button>`
   ).join("");
@@ -217,9 +132,7 @@ function filtered() {
 // ===================
 function renderGrid() {
   if (!menuGrid) return;
-  const items = filtered()
-    .map(
-      (p) => `
+  const items = filtered().map(p => `
     <article class="card group smooth will hover:-translate-y-1 hover:shadow-lg" data-animate="fade-up">
       <div class="w-full aspect-[4/3] bg-white/5 grid place-items-center overflow-hidden">
         <img src="${p.image}" alt="${p.name}" loading="lazy"
@@ -229,28 +142,20 @@ function renderGrid() {
       <div class="p-4">
         <div class="flex items-start justify-between gap-3">
           <h3 class="font-semibold">${p.name}</h3>
-          <span class="text-brand font-semibold">${currency.format(
-            p.price
-          )}</span>
+          <span class="text-brand font-semibold">${currency.format(p.price)}</span>
         </div>
         <p class="text-sm text-white/70 mt-1">${p.desc || ""}</p>
         <div class="mt-3 flex items-center justify-between">
           <span class="text-xs text-white/50">${p.category}</span>
-          <button class="btn smooth hover:-translate-y-0.5" data-ripple onclick="addToCart(${
-            p.id
-          })">
+          <button class="btn smooth hover:-translate-y-0.5" data-ripple onclick="addToCart(${p.id})">
             <i class="fa-solid fa-plus"></i> Adicionar
           </button>
         </div>
       </div>
     </article>
-  `
-    )
-    .join("");
+  `).join("");
   menuGrid.innerHTML = items;
-  menuGrid
-    .querySelectorAll("[data-animate]")
-    .forEach((el) => observer.observe(el));
+  menuGrid.querySelectorAll("[data-animate]").forEach((el) => observer.observe(el));
 }
 renderGrid();
 
@@ -262,17 +167,13 @@ chips?.addEventListener("click", (e) => {
   renderChips();
   menuGrid.classList.add("animate-fade-in");
   renderGrid();
-  menuGrid.addEventListener(
-    "animationend",
-    () => menuGrid.classList.remove("animate-fade-in"),
-    { once: true }
-  );
+  menuGrid.addEventListener("animationend", () => menuGrid.classList.remove("animate-fade-in"), { once: true });
 });
 
 // ===================
 //       CART
 // ===================
-window.addToCart = function (id) {
+window.addToCart = function(id) {
   const product = PRODUCTS.find((p) => p.id === id);
   const idx = cart.findIndex((i) => i.id === id);
   if (idx >= 0) cart[idx].qty += 1;
@@ -281,19 +182,10 @@ window.addToCart = function (id) {
   cartCounter.classList.remove("animate-pulse-soft");
   void cartCounter.offsetWidth;
   cartCounter.classList.add("animate-pulse-soft");
-  Toastify({
-    text: `${product.name} adicionado!`,
-    duration: 1500,
-    gravity: "top",
-    position: "right",
-    backgroundColor: "#16a34a",
-  }).showToast();
+  Toastify({ text: `${product.name} adicionado!`, duration: 1500, gravity: "top", position: "right", backgroundColor: "#16a34a" }).showToast();
 };
-window.removeFromCart = function (id) {
-  cart = cart.filter((i) => i.id !== id);
-  updateCart();
-};
-window.changeQty = function (id, delta) {
+window.removeFromCart = function(id) { cart = cart.filter((i) => i.id !== id); updateCart(); };
+window.changeQty = function(id, delta) {
   const it = cart.find((i) => i.id === id);
   if (!it) return;
   it.qty += delta;
@@ -301,44 +193,29 @@ window.changeQty = function (id, delta) {
   updateCart();
 };
 
-function cartSubtotalVal() {
-  return cart.reduce((s, i) => s + i.price * i.qty, 0);
-}
+function cartSubtotalVal(){ return cart.reduce((s,i)=> s + i.price*i.qty, 0); }
 
 function updateCart() {
   cartCounter.textContent = cart.reduce((s, i) => s + i.qty, 0);
   cartItemsContainer.innerHTML = cart.length
-    ? cart
-        .map(
-          (i) => `
+    ? cart.map(i => `
       <div class="flex items-center justify-between gap-3">
         <div class="flex items-center gap-3">
-          <img src="${i.image}" alt="${
-            i.name
-          }" class="size-12 rounded-lg object-cover">
+          <img src="${i.image}" alt="${i.name}" class="size-12 rounded-lg object-cover">
           <div>
             <p class="font-medium">${i.name}</p>
             <p class="text-xs text-white/60">${currency.format(i.price)}</p>
           </div>
         </div>
         <div class="flex items-center gap-2">
-          <button class="btn-ghost" data-ripple onclick="changeQty(${
-            i.id
-          },-1)"><i class="fa-solid fa-minus"></i></button>
+          <button class="btn-ghost" data-ripple onclick="changeQty(${i.id},-1)"><i class="fa-solid fa-minus"></i></button>
           <span class="w-6 text-center">${i.qty}</span>
-          <button class="btn-ghost" data-ripple onclick="changeQty(${
-            i.id
-          },1)"><i class="fa-solid fa-plus"></i></button>
-          <span class="w-20 text-right font-semibold">${currency.format(
-            i.price * i.qty
-          )}</span>
-          <button class="btn-ghost" data-ripple onclick="removeFromCart(${
-            i.id
-          })"><i class="fa-solid fa-trash"></i></button>
+          <button class="btn-ghost" data-ripple onclick="changeQty(${i.id},1)"><i class="fa-solid fa-plus"></i></button>
+          <span class="w-20 text-right font-semibold">${currency.format(i.price*i.qty)}</span>
+          <button class="btn-ghost" data-ripple onclick="removeFromCart(${i.id})"><i class="fa-solid fa-trash"></i></button>
         </div>
       </div>`
-        )
-        .join("")
+    ).join("")
     : `<p class="text-white/70">Seu carrinho está vazio.</p>`;
 
   const sub = cartSubtotalVal();
@@ -352,13 +229,13 @@ function updateCart() {
 // ===================
 //     MODAL (pop)
 // ===================
-function gotoStep(n) {
-  step1.classList.toggle("hidden", n !== 1);
-  step2.classList.toggle("hidden", n !== 2);
-  step3.classList.toggle("hidden", n !== 3);
+function gotoStep(n){
+  step1.classList.toggle("hidden", n!==1);
+  step2.classList.toggle("hidden", n!==2);
+  step3.classList.toggle("hidden", n!==3);
   // reseta scroll do conteúdo rolável
-  [step1, step2, step3].forEach((s) => {
-    if (!s.classList.contains("hidden")) {
+  [step1,step2,step3].forEach(s=>{
+    if(!s.classList.contains("hidden")){
       const sc = s.querySelector(".overflow-auto");
       sc && (sc.scrollTop = 0);
     }
@@ -379,32 +256,17 @@ function closeCart() {
   cartOverlay?.classList.add("animate-fade-out");
   cartPanel?.classList.add("animate-pop-out");
   let finished = false;
-  (cartPanel || cartModal).addEventListener(
-    "animationend",
-    () => {
-      finished = true;
-      cartModal.classList.add("hidden");
-    },
-    { once: true }
-  );
-  setTimeout(() => {
-    if (!finished) cartModal.classList.add("hidden");
-  }, 300);
+  (cartPanel || cartModal).addEventListener("animationend", () => { finished = true; cartModal.classList.add("hidden"); }, { once: true });
+  setTimeout(() => { if (!finished) cartModal.classList.add("hidden"); }, 300);
 }
 
 cartBtn?.addEventListener("click", openCart);
 closeModalBtn?.addEventListener("click", closeCart);
-cartModal?.addEventListener("click", (e) => {
-  if (e.target === cartModal || e.target === cartOverlay) closeCart();
-});
-document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape" && !cartModal.classList.contains("hidden"))
-    closeCart();
-});
+cartModal?.addEventListener("click", (e) => { if (e.target === cartModal || e.target === cartOverlay) closeCart(); });
+document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !cartModal.classList.contains("hidden")) closeCart(); });
 
 continueBtn?.addEventListener("click", () => {
-  if (cart.length === 0)
-    return Toastify({ text: "Carrinho vazio.", duration: 1800 }).showToast();
+  if (cart.length === 0) return Toastify({ text: "Carrinho vazio.", duration: 1800 }).showToast();
   gotoStep(2);
 });
 backToCartBtn?.addEventListener("click", () => gotoStep(1));
@@ -418,86 +280,64 @@ backToAddressBtn?.addEventListener("click", () => gotoStep(2));
 // ===== MÁSCARAS & CEP =====
 const digits = (v) => (v || "").replace(/\D/g, "");
 
-function formatPhone(v) {
-  v = digits(v).slice(0, 11);
-  if (v.length > 6) return `(${v.slice(0, 2)}) ${v.slice(2, 7)}-${v.slice(7)}`;
-  if (v.length > 2) return `(${v.slice(0, 2)}) ${v.slice(2)}`;
+function formatPhone(v){
+  v = digits(v).slice(0,11);
+  if (v.length > 6) return `(${v.slice(0,2)}) ${v.slice(2,7)}-${v.slice(7)}`;
+  if (v.length > 2) return `(${v.slice(0,2)}) ${v.slice(2)}`;
   return v;
 }
-phoneInput?.addEventListener(
-  "input",
-  (e) => (e.target.value = formatPhone(e.target.value))
-);
+phoneInput?.addEventListener("input", e => e.target.value = formatPhone(e.target.value));
 
-function formatCEP(v) {
-  v = digits(v).slice(0, 8);
-  return v.length > 5 ? v.slice(0, 5) + "-" + v.slice(5) : v;
+function formatCEP(v){
+  v = digits(v).slice(0,8);
+  return v.length > 5 ? v.slice(0,5)+"-"+v.slice(5) : v;
 }
 
 // debounce helper
-function debounce(fn, ms = 450) {
-  let t;
-  return (...a) => {
-    clearTimeout(t);
-    t = setTimeout(() => fn(...a), ms);
-  };
-}
+function debounce(fn, ms=450){ let t; return (...a)=>{ clearTimeout(t); t=setTimeout(()=>fn(...a), ms);} }
 const debouncedCep = debounce(() => {
   const raw = digits(cepInput.value);
   if (raw.length === 8) lookupCep();
 }, 450);
 
-cepInput?.addEventListener("input", (e) => {
+cepInput?.addEventListener("input", e => {
   e.target.value = formatCEP(e.target.value);
   debouncedCep();
 });
-cepInput?.addEventListener("blur", () => {
-  if (digits(cepInput.value).length === 8) lookupCep();
-});
+cepInput?.addEventListener("blur", ()=> { if (digits(cepInput.value).length===8) lookupCep(); });
 
-async function lookupCep() {
+async function lookupCep(){
   const cep = digits(cepInput.value);
-  if (cep.length !== 8) {
-    showCepWarn("CEP inválido.");
-    return;
-  }
-  try {
+  if (cep.length !== 8){ showCepWarn("CEP inválido."); return; }
+  try{
     const r = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
     const d = await r.json();
-    if (d.erro) {
-      showCepWarn("CEP não encontrado.");
-      return;
-    }
+    if (d.erro){ showCepWarn("CEP não encontrado."); return; }
     hideCepWarn();
     streetInput.value = d.logradouro || "";
-    neighInput.value = d.bairro || "";
-    cityInput.value = d.localidade || "";
-    ufInput.value = (d.uf || "").toUpperCase();
+    neighInput.value  = d.bairro || "";
+    cityInput.value   = d.localidade || "";
+    ufInput.value     = (d.uf || "").toUpperCase();
     numberInput.focus();
-  } catch {
+  }catch{
     showCepWarn("Falha ao buscar CEP.");
   }
 }
-function showCepWarn(msg) {
-  cepWarn.textContent = msg;
-  cepWarn.classList.remove("hidden");
-}
-function hideCepWarn() {
-  cepWarn.classList.add("hidden");
-}
+function showCepWarn(msg){ cepWarn.textContent = msg; cepWarn.classList.remove("hidden"); }
+function hideCepWarn(){ cepWarn.classList.add("hidden"); }
 
 // ===================
 //   VALIDAÇÃO STEP 2
 // ===================
-function validateStep2() {
+function validateStep2(){
   const req = [
     [nameInput, "Informe seu nome."],
-    [phoneInput, "Informe seu WhatsApp."],
+    [phoneInput, "Informe seu WhatsApp."]
   ];
 
   // se entrega estiver marcada, endereço é obrigatório
   const ship = selected("ship") || "delivery";
-  if (ship === "delivery") {
+  if (ship === "delivery"){
     req.push([cepInput, "Informe o CEP."]);
     req.push([streetInput, "Informe a rua."]);
     req.push([numberInput, "Informe o número."]);
@@ -514,18 +354,9 @@ function validateStep2() {
       return false;
     }
   }
-  function toWaLink(rawPhone, defaultCountry = "55") {
-    // Mantém apenas dígitos e garante prefixo do país (BR = 55)
-    let d = (rawPhone || "").replace(/\D/g, "");
-    if (!d.startsWith(defaultCountry)) d = defaultCountry + d;
-    return `https://wa.me/${d}`;
-  }
   if (digits(phoneInput.value).length < 10) {
     markInvalid(phoneInput);
-    Toastify({
-      text: "WhatsApp parece incompleto.",
-      duration: 1800,
-    }).showToast();
+    Toastify({ text: "WhatsApp parece incompleto.", duration: 1800 }).showToast();
     phoneInput.focus();
     return false;
   }
@@ -537,35 +368,35 @@ function validateStep2() {
   }
   return true;
 }
-function markInvalid(input) {
+function markInvalid(input){
   input.classList.add("border-red-400");
-  setTimeout(() => input.classList.remove("border-red-400"), 1200);
+  setTimeout(()=> input.classList.remove("border-red-400"), 1200);
 }
-function selected(name) {
+function selected(name){
   return document.querySelector(`input[name="${name}"]:checked`)?.value || "";
 }
 
 // ===================
 //   ENTREGA/PAGAMENTO
 // ===================
-document.querySelectorAll('input[name="pay"]').forEach((r) => {
-  r.addEventListener("change", () => {
+document.querySelectorAll('input[name="pay"]').forEach(r=>{
+  r.addEventListener("change", ()=>{
     const show = selected("pay") === "money";
     moneyChangeWrap.classList.toggle("hidden", !show);
   });
 });
-document.querySelectorAll('input[name="ship"]').forEach((r) => {
+document.querySelectorAll('input[name="ship"]').forEach(r=>{
   r.addEventListener("change", updateTotalsUI);
 });
 
-function deliveryFeeVal() {
+function deliveryFeeVal(){
   const method = selected("ship") || "delivery";
   const sub = cartSubtotalVal();
   if (method !== "delivery") return 0;
   const { defaultFee, freeAbove } = DELIVERY_CONFIG;
   return sub >= freeAbove ? 0 : defaultFee;
 }
-function updateTotalsUI() {
+function updateTotalsUI(){
   const sub = cartSubtotalVal();
   const fee = deliveryFeeVal();
   const grand = sub + fee;
@@ -573,6 +404,12 @@ function updateTotalsUI() {
   elFee && (elFee.textContent = currency.format(fee));
   elGrand && (elGrand.textContent = currency.format(grand));
   cartTotal.textContent = currency.format(sub);
+}
+function toWaLink(rawPhone, defaultCountry = "55") {
+  // Mantém apenas dígitos e garante prefixo do país (BR = 55)
+  let d = (rawPhone || "").replace(/\D/g, "");
+  if (!d.startsWith(defaultCountry)) d = defaultCountry + d;
+  return `https://wa.me/${d}`;
 }
 updateTotalsUI();
 
@@ -583,54 +420,50 @@ checkoutBtn?.addEventListener("click", () => {
   if (cart.length === 0)
     return Toastify({ text: "Carrinho vazio.", duration: 1800 }).showToast();
 
-  if (!validateStep2()) {
-    gotoStep(2);
-    return;
-  }
+  if (!validateStep2()) { gotoStep(2); return; }
 
-  const pay = selected("pay") || "pix"; // pix | card | money
-  const ship = selected("ship") || "delivery"; // delivery | pickup
+  const pay  = selected("pay")  || "pix";        // pix | card | money
+  const ship = selected("ship") || "delivery";   // delivery | pickup
 
-  const sub = cartSubtotalVal();
-  const fee = deliveryFeeVal();
+  const sub  = cartSubtotalVal();
+  const fee  = deliveryFeeVal();
   const total = sub + fee;
 
   // 👉 AQUI: cada item em UMA LINHA
   const items = cart
-    .map((i) => `• ${i.qty}× ${i.name} — ${currency.format(i.price * i.qty)}`)
+    .map(i => `• ${i.qty}× ${i.name} — ${currency.format(i.price * i.qty)}`)
     .join("\n");
 
-  const name = (nameInput.value || "").trim();
+  const name  = (nameInput.value  || "").trim();
   const phone = (phoneInput.value || "").trim();
   const clientWaLink = toWaLink(phone);
 
   // 👉 Endereço montado COM \n (sem %0A)
   let addressBlock = "";
   if (ship === "delivery") {
-    const cep = (cepInput.value || "").trim();
-    const rua = (streetInput.value || "").trim();
-    const num = (numberInput.value || "").trim();
-    const comp = (compInput.value || "").trim();
-    const bairro = (neighInput.value || "").trim();
-    const cidade = (cityInput.value || "").trim();
-    const uf = (ufInput.value || "").trim().toUpperCase();
-    const ref = (refInput.value || "").trim();
+    const cep    = (cepInput.value    || "").trim();
+    const rua    = (streetInput.value || "").trim();
+    const num    = (numberInput.value || "").trim();
+    const comp   = (compInput.value   || "").trim();
+    const bairro = (neighInput.value  || "").trim();
+    const cidade = (cityInput.value   || "").trim();
+    const uf     = (ufInput.value     || "").trim().toUpperCase();
+    const ref    = (refInput.value    || "").trim();
 
     const end1 = `${rua}, ${num}${comp ? ` - ${comp}` : ""}`;
     const end2 = `${bairro} — ${cidade}/${uf}`;
     const end3 = `CEP: ${cep}${ref ? ` • Ref: ${ref}` : ""}`;
 
-    addressBlock = `*Endereço*\n` + `${end1}\n${end2}\n${end3}\n`;
+    addressBlock =
+      `*Endereço*\n` +
+      `${end1}\n${end2}\n${end3}\n`;
   } else {
     addressBlock = `*Recebimento*\nRetirar no local\n`;
   }
 
-  const payTxt =
-    pay === "money"
-      ? `Dinheiro — troco para ${changeInput.value || "R$ 0,00"}`
-      : pay === "card"
-      ? "Cartão"
-      : "Pix";
+  const payTxt = pay === "money"
+    ? `Dinheiro — troco para ${changeInput.value || "R$ 0,00"}`
+    : (pay === "card" ? "Cartão" : "Pix");
 
   const notes = (notesInput.value || "").trim();
 
@@ -654,10 +487,7 @@ Contato: ${clientWaLink}
 
 ${addressBlock}${notes ? `\n*Observações*\n${notes}\n` : ""}`;
 
-  const url = `https://wa.me/${WHATS_PHONE.replace(
-    /\D/g,
-    ""
-  )}?text=${encodeURIComponent(msg)}`;
+  const url = `https://wa.me/${WHATS_PHONE.replace(/\D/g,"")}?text=${encodeURIComponent(msg)}`;
   window.open(url, "_blank");
 
   // reset
@@ -665,11 +495,7 @@ ${addressBlock}${notes ? `\n*Observações*\n${notes}\n` : ""}`;
   updateCart();
   gotoStep(1);
   closeCart();
-  Toastify({
-    text: "Pedido enviado!",
-    duration: 2000,
-    backgroundColor: "#16a34a",
-  }).showToast();
+  Toastify({ text: "Pedido enviado!", duration: 2000, backgroundColor: "#16a34a" }).showToast();
 });
 
 // ===================
@@ -695,9 +521,7 @@ function renderDepoAvatars() {
   ).join("");
 
   depoAvatars.querySelectorAll("button").forEach((btn) => {
-    btn.addEventListener("click", () =>
-      selectTestimonial(Number(btn.dataset.id))
-    );
+    btn.addEventListener("click", () => selectTestimonial(Number(btn.dataset.id)));
   });
 }
 function selectTestimonial(id) {
@@ -711,9 +535,7 @@ function selectTestimonial(id) {
   depoName.textContent = t.name;
   depoRole.textContent = t.role;
   depoContent.classList.add("animate-fade-in");
-  depoAvatars
-    .querySelectorAll("button")
-    .forEach((b) => b.classList.remove("active"));
+  depoAvatars.querySelectorAll("button").forEach((b) => b.classList.remove("active"));
   depoAvatars.querySelectorAll("button > div").forEach((w) => {
     w.classList.remove("animate-pulse-soft", "ring-2", "ring-brand");
     w.classList.add("ring-1", "ring-white/10");
@@ -730,9 +552,7 @@ function selectTestimonial(id) {
 // ===================
 //  RIPPLE + HEADER
 // ===================
-document
-  .querySelectorAll("[data-animate]")
-  .forEach((el) => observer.observe(el));
+document.querySelectorAll("[data-animate]").forEach((el) => observer.observe(el));
 (function initRipple(root = document) {
   root.querySelectorAll(".btn, .btn-ghost, [data-ripple]").forEach((btn) => {
     if (btn._rippleInit) return;
@@ -745,15 +565,14 @@ document
       r.style.width = r.style.height = size + "px";
       r.style.left = e.clientX - rect.left - size / 2 + "px";
       r.style.top = e.clientY - rect.top - size / 2 + "px";
-      r.className =
-        "pointer-events-none absolute rounded-full bg-white/20 animate-ripple";
+      r.className = "pointer-events-none absolute rounded-full bg-white/20 animate-ripple";
       btn.appendChild(r);
       r.addEventListener("animationend", () => r.remove(), { once: true });
     });
   });
 })();
 const header = document.querySelector("header.sticky");
-if (header) {
+if (header){
   window.addEventListener("scroll", () => {
     const scrolled = (window.scrollY || 0) > 8;
     header.classList.toggle("shadow-lg", scrolled);
@@ -771,10 +590,7 @@ if (header) {
     if (node.nodeType === 3) {
       const frag = document.createDocumentFragment();
       (node.textContent || "").split(/(\s+)/).forEach((part) => {
-        if (/^\s+$/.test(part)) {
-          frag.appendChild(document.createTextNode(part));
-          return;
-        }
+        if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(part)); return; }
         if (!part) return;
         const s = document.createElement("span");
         s.className = "w";
@@ -792,14 +608,10 @@ if (header) {
   Array.from(h.childNodes).forEach(wrap);
   const sub = document.querySelector(".hero-sub");
   const cta = document.querySelector("[data-hero-cta]");
-  setTimeout(() => {
-    sub && (sub.style.willChange = "opacity");
-  }, 50);
+  setTimeout(() => { sub && (sub.style.willChange = "opacity"); }, 50);
   if (cta) {
     cta.classList.add("is-in");
-    cta
-      .querySelectorAll("a")
-      .forEach((a, i) => a.style.setProperty("--d", 400 + i * 120 + "ms"));
+    cta.querySelectorAll("a").forEach((a, i) => a.style.setProperty("--d", 400 + i * 120 + "ms"));
   }
   const hero = document.querySelector("section.bg-hero");
   if (hero) {
@@ -813,10 +625,7 @@ if (header) {
         hero.style.backgroundPosition = `${50 + px * 4}% ${50 + py * 3}%`;
       });
     });
-    hero.addEventListener(
-      "mouseleave",
-      () => (hero.style.backgroundPosition = "50% 50%")
-    );
+    hero.addEventListener("mouseleave", () => (hero.style.backgroundPosition = "50% 50%"));
   }
 })();
 
