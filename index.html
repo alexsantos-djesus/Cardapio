@@ -209,12 +209,10 @@
 
   <!-- Modal do carrinho -->
   <div id="cart-modal" class="fixed inset-0 z-50 hidden">
-    <!-- overlay mais escuro + blur (precisa do id para animar) -->
     <div id="cart-overlay" class="absolute inset-0 bg-black/80 backdrop-blur-sm"></div>
 
     <div class="relative h-full w-full grid place-items-center p-4">
-      <!-- painel sólido (não translúcido) -->
-      <div id="cart-panel" class="card bg-[#0f121a] border-white/20 max-w-2xl w-full shadow-2xl will">
+      <div id="cart-panel" class="card bg-[#0f121a] border-white/20 max-w-2xl w-full shadow-2xl will relative z-10">
         <div class="p-4 border-b border-white/10 flex items-center justify-between">
           <h3 class="font-semibold">Seu carrinho</h3>
           <button id="close-modal-btn" class="btn-ghost smooth" data-ripple>
@@ -222,29 +220,82 @@
           </button>
         </div>
 
-        <div id="cart-items" class="p-4 space-y-3 max-h-[60vh] overflow-auto"></div>
-
-        <div class="p-4 border-t border-white/10 flex items-center justify-between">
-          <div class="text-white/80">
-            Total: <strong id="cart-total" class="text-white">R$ 0,00</strong>
+        <!-- ETAPA 1: Itens -->
+        <div id="cart-step-1">
+          <div id="cart-items" class="p-4 space-y-3 max-h-[60vh] overflow-auto"></div>
+          <div class="p-4 border-t border-white/10 flex items-center justify-between">
+            <div class="text-white/80">
+              Total: <strong id="cart-total" class="text-white">R$ 0,00</strong>
+            </div>
+            <button id="continue-btn" class="btn">
+              Continuar compra
+            </button>
           </div>
-          <button id="checkout-btn" class="btn smooth" data-ripple>
-            <i class="fa-brands fa-whatsapp"></i> Finalizar pedido
-          </button>
         </div>
 
-        <div class="p-4 border-t border-white/10">
-          <label class="text-sm text-white/80">Endereço / Observações</label>
-          <!-- input um pouco mais opaco -->
-          <input
-            id="Address"
-            type="text"
-            class="mt-2 w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 outline-none focus:border-brand smooth"
-            placeholder="Rua, número, bairro..."
-          />
-          <p id="address-warn" class="hidden text-sm text-red-400 mt-2">
-            Por favor, preencha seu endereço.
-          </p>
+        <!-- ETAPA 2: Dados do cliente/entrega -->
+        <div id="cart-step-2" class="hidden">
+          <div class="p-4 space-y-4">
+            <h4 class="font-medium">Dados para entrega</h4>
+
+            <div class="grid md:grid-cols-2 gap-3">
+              <div>
+                <label class="text-sm text-white/80">Nome completo *</label>
+                <input id="inp-name" type="text" class="mt-1 w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 outline-none focus:border-brand" />
+              </div>
+              <div>
+                <label class="text-sm text-white/80">WhatsApp *</label>
+                <input id="inp-phone" type="text" placeholder="(00) 00000-0000" class="mt-1 w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 outline-none focus:border-brand" />
+              </div>
+
+              <div>
+                <label class="text-sm text-white/80">CEP *</label>
+                <div class="flex items-center gap-2">
+                  <input id="inp-cep" type="text" placeholder="00000-000" class="mt-1 w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 outline-none focus:border-brand" />
+                  <button id="btn-cep" type="button" class="btn-ghost">Buscar</button>
+                </div>
+                <p id="cep-warn" class="hidden text-sm text-red-400 mt-1">CEP inválido.</p>
+              </div>
+              <div>
+                <label class="text-sm text-white/80">Rua *</label>
+                <input id="inp-street" type="text" class="mt-1 w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 outline-none focus:border-brand" />
+              </div>
+
+              <div>
+                <label class="text-sm text-white/80">Bairro *</label>
+                <input id="inp-neighborhood" type="text" class="mt-1 w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 outline-none focus:border-brand" />
+              </div>
+              <div>
+                <label class="text-sm text-white/80">Cidade *</label>
+                <input id="inp-city" type="text" class="mt-1 w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 outline-none focus:border-brand" />
+              </div>
+
+              <div>
+                <label class="text-sm text-white/80">UF *</label>
+                <input id="inp-uf" type="text" maxlength="2" class="mt-1 w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 outline-none uppercase focus:border-brand" />
+              </div>
+              <div>
+                <label class="text-sm text-white/80">Número *</label>
+                <input id="inp-number" type="text" class="mt-1 w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 outline-none focus:border-brand" />
+              </div>
+
+              <div class="md:col-span-2">
+                <label class="text-sm text-white/80">Complemento</label>
+                <input id="inp-complement" type="text" class="mt-1 w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 outline-none focus:border-brand" />
+              </div>
+              <div class="md:col-span-2">
+                <label class="text-sm text-white/80">Referência</label>
+                <input id="inp-reference" type="text" class="mt-1 w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 outline-none focus:border-brand" />
+              </div>
+            </div>
+          </div>
+
+          <div class="p-4 border-t border-white/10 flex items-center justify-between">
+            <button id="back-to-cart" class="btn-ghost">Voltar ao carrinho</button>
+            <button id="checkout-btn" class="btn">
+              <i class="fa-brands fa-whatsapp"></i> Finalizar pedido
+            </button>
+          </div>
         </div>
       </div>
     </div>

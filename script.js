@@ -7,12 +7,26 @@ const cartBtn = document.getElementById("cart-btn");
 const cartModal = document.getElementById("cart-modal");
 const cartItemsContainer = document.getElementById("cart-items");
 const cartTotal = document.getElementById("cart-total");
-const checkoutBtn = document.getElementById("checkout-btn");
 const closeModalBtn = document.getElementById("close-modal-btn");
 const cartCounter = document.getElementById("cart-count");
-const addressInput = document.getElementById("Address");
-const addressWarn = document.getElementById("address-warn");
 const ctaWhatsapp = document.getElementById("cta-whatsapp");
+
+// Steps do checkout e formulário
+const step1 = document.getElementById("cart-step-1");
+const step2 = document.getElementById("cart-step-2");
+const continueBtn = document.getElementById("continue-btn");
+const backBtn = document.getElementById("back-to-cart");
+const nameInput = document.getElementById("inp-name");
+const phoneInput = document.getElementById("inp-phone");
+const cepInput = document.getElementById("inp-cep");
+const cepBtn = document.getElementById("btn-cep");
+const streetInput = document.getElementById("inp-street");
+const neighInput = document.getElementById("inp-neighborhood");
+const cityInput = document.getElementById("inp-city");
+const ufInput = document.getElementById("inp-uf");
+const numberInput = document.getElementById("inp-number");
+const compInput = document.getElementById("inp-complement");
+const refInput = document.getElementById("inp-reference");
 
 // Config (fácil de trocar no portfolio)
 const WHATS_PHONE = "+5571992620696";
@@ -118,33 +132,31 @@ const TESTIMONIALS = [
 // ===================
 //    STATE/HELPERS
 // ===================
-
 let activeCategory = "Todos";
 let cart = [];
-// ---- Reveal on scroll (compat + fallback) ----
-var observer = (function () {
-  if (!('IntersectionObserver' in window)) {
-    // Sem suporte? não quebra nada.
-    return { observe: function(){}, unobserve: function(){} };
-  }
-  return new IntersectionObserver(function (entries, obs) {
-    for (var i = 0; i < entries.length; i++) {
-      var entry = entries[i];
-      if (entry.isIntersecting) {
-        var type = entry.target.dataset.animate || 'fade-up';
-        entry.target.classList.add('animate-' + type, 'will');
-        obs.unobserve(entry.target);
-      }
-    }
-  }, { threshold: 0.15 });
-})();
-
-// observar elementos que já estão na página (títulos, cards, etc)
-document.querySelectorAll('[data-animate]').forEach(function(el){
-  observer.observe(el);
-});
-
 ctaWhatsapp.href = `https://wa.me/${WHATS_PHONE.replace(/\D/g, "")}`;
+
+// Reveal on scroll (com fallback)
+var observer = (function () {
+  if (!("IntersectionObserver" in window))
+    return { observe() {}, unobserve() {} };
+  return new IntersectionObserver(
+    function (entries, obs) {
+      for (var i = 0; i < entries.length; i++) {
+        var entry = entries[i];
+        if (entry.isIntersecting) {
+          var type = entry.target.dataset.animate || "fade-up";
+          entry.target.classList.add("animate-" + type, "will");
+          obs.unobserve(entry.target);
+        }
+      }
+    },
+    { threshold: 0.15 }
+  );
+})();
+document
+  .querySelectorAll("[data-animate]")
+  .forEach((el) => observer.observe(el));
 
 const CATEGORIES = [
   "Todos",
@@ -152,17 +164,16 @@ const CATEGORIES = [
 ];
 
 // ===================
-//  CATEGORY CHIPS (animated)
+//  CATEGORY CHIPS
 // ===================
 function renderChips() {
   chips.innerHTML = CATEGORIES.map(
     (cat) => `
-    <button
-      class="chip smooth will hover:-translate-y-0.5 active:scale-95 ${
-        cat === activeCategory ? "border-brand bg-white/10" : ""
-      }"
-      data-cat="${cat}"
-    >${cat}</button>
+    <button class="chip smooth will hover:-translate-y-0.5 active:scale-95 ${
+      cat === activeCategory ? "border-brand bg-white/10" : ""
+    }" data-cat="${cat}">
+      ${cat}
+    </button>
   `
   ).join("");
 }
@@ -175,7 +186,7 @@ function filtered() {
 }
 
 // ===================
-//  GRID (reveal + hover)
+//  GRID
 // ===================
 function renderGrid() {
   const items = filtered()
@@ -183,9 +194,9 @@ function renderGrid() {
       (p) => `
     <article class="card group smooth will hover:-translate-y-1 hover:shadow-lg" data-animate="fade-up">
       <div class="w-full aspect-[4/3] bg-white/5 grid place-items-center overflow-hidden">
-        <img src="${p.image}" alt="${p.name}" loading="lazy"
-             class="opacity-0 max-h-full max-w-full object-contain p-2 smooth t-slow group-hover:scale-105"
-             onload="this.classList.add('opacity-100')">
+        <img src="${p.image}" alt="${
+        p.name
+      }" loading="lazy" class="opacity-0 max-h-full max-w-full object-contain p-2 smooth t-slow group-hover:scale-105" onload="this.classList.add('opacity-100')">
       </div>
       <div class="p-4">
         <div class="flex items-start justify-between gap-3">
@@ -209,14 +220,13 @@ function renderGrid() {
     )
     .join("");
   menuGrid.innerHTML = items;
-  // observar para animar ao entrar
   menuGrid
     .querySelectorAll("[data-animate]")
     .forEach((el) => observer.observe(el));
 }
 renderGrid();
 
-// categoria com transição
+// trocar de categoria
 chips.addEventListener("click", (e) => {
   const el = e.target.closest("button[data-cat]");
   if (!el) return;
@@ -241,9 +251,8 @@ function addToCart(id) {
   else cart.push({ ...product, qty: 1 });
   updateCart();
 
-  // pulsar o contador
   cartCounter.classList.remove("animate-pulse-soft");
-  void cartCounter.offsetWidth; // reflow
+  void cartCounter.offsetWidth;
   cartCounter.classList.add("animate-pulse-soft");
 
   Toastify({
@@ -255,12 +264,10 @@ function addToCart(id) {
     backgroundColor: "#16a34a",
   }).showToast();
 }
-
 function removeFromCart(id) {
   cart = cart.filter((i) => i.id !== id);
   updateCart();
 }
-
 function changeQty(id, delta) {
   const it = cart.find((i) => i.id === id);
   if (!it) return;
@@ -275,39 +282,42 @@ function updateCart() {
     ? cart
         .map(
           (i) => `
-    <div class="flex items-center justify-between gap-3">
-      <div class="flex items-center gap-3">
-        <img src="${i.image}" alt="${
+      <div class="flex items-center justify-between gap-3">
+        <div class="flex items-center gap-3">
+          <img src="${i.image}" alt="${
             i.name
           }" class="size-12 rounded-lg object-cover">
-        <div>
-          <p class="font-medium">${i.name}</p>
-          <p class="text-xs text-white/60">${currency.format(i.price)}</p>
+          <div>
+            <p class="font-medium">${i.name}</p>
+            <p class="text-xs text-white/60">${currency.format(i.price)}</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <button class="btn-ghost" data-ripple onclick="changeQty(${
+            i.id
+          }, -1)"><i class="fa-solid fa-minus"></i></button>
+          <span class="w-6 text-center">${i.qty}</span>
+          <button class="btn-ghost" data-ripple onclick="changeQty(${
+            i.id
+          }, 1)"><i class="fa-solid fa-plus"></i></button>
+          <span class="w-20 text-right font-semibold">${currency.format(
+            i.price * i.qty
+          )}</span>
+          <button class="btn-ghost" data-ripple onclick="removeFromCart(${
+            i.id
+          })"><i class="fa-solid fa-trash"></i></button>
         </div>
       </div>
-      <div class="flex items-center gap-2">
-        <button class="btn-ghost" data-ripple onclick="changeQty(${
-          i.id
-        }, -1)"><i class="fa-solid fa-minus"></i></button>
-        <span class="w-6 text-center">${i.qty}</span>
-        <button class="btn-ghost" data-ripple onclick="changeQty(${
-          i.id
-        }, 1)"><i class="fa-solid fa-plus"></i></button>
-        <span class="w-20 text-right font-semibold">${currency.format(
-          i.price * i.qty
-        )}</span>
-        <button class="btn-ghost" data-ripple onclick="removeFromCart(${
-          i.id
-        })"><i class="fa-solid fa-trash"></i></button>
-      </div>
-    </div>
-  `
+    `
         )
         .join("")
     : `<p class="text-white/70">Seu carrinho está vazio.</p>`;
 
   const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
   cartTotal.textContent = currency.format(total);
+
+  // botão continuar habilita/desabilita
+  if (continueBtn) continueBtn.disabled = cart.length === 0;
 }
 
 // ===================
@@ -319,78 +329,173 @@ const cartOverlay =
 const cartPanel =
   cartModal.querySelector("#cart-panel") || cartModal.querySelector(".card");
 
+function goToStep(n) {
+  if (n === 1) {
+    step1.classList.remove("hidden");
+    step2.classList.add("hidden");
+  } else {
+    step1.classList.add("hidden");
+    step2.classList.remove("hidden");
+  }
+}
+
 function openCart() {
   cartModal.classList.remove("hidden");
   cartOverlay?.classList.remove("animate-fade-out");
   cartPanel?.classList.remove("animate-pop-out");
   cartOverlay?.classList.add("animate-fade-in");
   cartPanel?.classList.add("animate-pop");
+  goToStep(1);
 }
-
 function closeCart() {
-  // remove animações “de entrada”
   cartOverlay?.classList.remove("animate-fade-in");
   cartPanel?.classList.remove("animate-pop");
-
-  // adiciona animações “de saída”
   cartOverlay?.classList.add("animate-fade-out");
   cartPanel?.classList.add("animate-pop-out");
-
-  // fallback: se animationend não vier, fecha em 300ms
-  const done = () => cartModal.classList.add("hidden");
   let finished = false;
-
   (cartPanel || cartModal).addEventListener(
     "animationend",
     () => {
       finished = true;
-      done();
+      cartModal.classList.add("hidden");
     },
     { once: true }
   );
-
   setTimeout(() => {
-    if (!finished) done();
+    if (!finished) cartModal.classList.add("hidden");
   }, 300);
 }
 
 // abre/fecha
 cartBtn.addEventListener("click", openCart);
-
-// delegação: se clicar no X (ou no ícone dentro dele), fecha
 document.addEventListener("click", (e) => {
   if (e.target.closest("#close-modal-btn")) closeCart();
 });
-
-// clicar fora fecha
 cartModal.addEventListener("click", (e) => {
   if (e.target === cartModal || e.target === cartOverlay) closeCart();
 });
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && !cartModal.classList.contains("hidden"))
+    closeCart();
+});
+
+// navegar entre etapas
+continueBtn?.addEventListener("click", () => {
+  if (cart.length === 0)
+    return Toastify({ text: "Carrinho vazio.", duration: 1800 }).showToast();
+  goToStep(2);
+});
+backBtn?.addEventListener("click", () => goToStep(1));
 
 // ===================
-//      CHECKOUT
+//   FORM/CEP/MÁSCARAS
 // ===================
+const digits = (v) => (v || "").replace(/\D/g, "");
+function formatPhone(v) {
+  v = digits(v).slice(0, 11);
+  if (v.length > 6) return `(${v.slice(0, 2)}) ${v.slice(2, 7)}-${v.slice(7)}`;
+  if (v.length > 2) return `(${v.slice(0, 2)}) ${v.slice(2)}`;
+  return v;
+}
+phoneInput?.addEventListener(
+  "input",
+  (e) => (e.target.value = formatPhone(e.target.value))
+);
+function formatCEP(v) {
+  v = digits(v).slice(0, 8);
+  return v.length > 5 ? v.slice(0, 5) + "-" + v.slice(5) : v;
+}
+cepInput?.addEventListener(
+  "input",
+  (e) => (e.target.value = formatCEP(e.target.value))
+);
+
+async function lookupCep() {
+  const cep = digits(cepInput.value);
+  const warn = document.getElementById("cep-warn");
+  if (cep.length !== 8) {
+    warn.textContent = "CEP inválido.";
+    warn.classList.remove("hidden");
+    return;
+  }
+  try {
+    const r = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+    const d = await r.json();
+    if (d.erro) {
+      warn.textContent = "CEP não encontrado.";
+      warn.classList.remove("hidden");
+      return;
+    }
+    warn.classList.add("hidden");
+    streetInput.value = d.logradouro || "";
+    neighInput.value = d.bairro || "";
+    cityInput.value = d.localidade || "";
+    ufInput.value = (d.uf || "").toUpperCase();
+    numberInput.focus();
+  } catch {
+    warn.textContent = "Falha ao buscar CEP.";
+    warn.classList.remove("hidden");
+  }
+}
+cepBtn?.addEventListener("click", lookupCep);
+cepInput?.addEventListener(
+  "blur",
+  () => digits(cepInput.value).length === 8 && lookupCep()
+);
+
+// ===================
+//   CHECKOUT (WA)
+// ===================
+function validateForm() {
+  const req = [
+    [nameInput, "Informe seu nome."],
+    [phoneInput, "Informe seu WhatsApp."],
+    [cepInput, "Informe o CEP."],
+    [streetInput, "Informe a rua."],
+    [neighInput, "Informe o bairro."],
+    [cityInput, "Informe a cidade."],
+    [ufInput, "Informe a UF."],
+    [numberInput, "Informe o número."],
+  ];
+  for (const [el, msg] of req) {
+    if (!el || !el.value.trim()) {
+      Toastify({ text: msg, duration: 1800 }).showToast();
+      el?.focus();
+      return false;
+    }
+  }
+  return true;
+}
+
 function buildMessage() {
   const items = cart
     .map((i) => `• ${i.qty}× ${i.name} — ${currency.format(i.price * i.qty)}`)
     .join("%0A");
   const total = currency.format(cart.reduce((s, i) => s + i.price * i.qty, 0));
-  const address = addressInput.value.trim();
+
+  const name = (nameInput.value || "").trim();
+  const phone = (phoneInput.value || "").trim();
+  const cep = (cepInput.value || "").trim();
+  const rua = (streetInput.value || "").trim();
+  const num = (numberInput.value || "").trim();
+  const comp = (compInput.value || "").trim();
+  const bairro = (neighInput.value || "").trim();
+  const cidade = (cityInput.value || "").trim();
+  const uf = (ufInput.value || "").trim().toUpperCase();
+  const ref = (refInput.value || "").trim();
+
   const header = `Pedido via Cardápio Demo`;
-  return `${header}%0A%0A${items}%0A%0ATotal: ${total}%0AEndereço/Obs: ${encodeURIComponent(
-    address
-  )}`;
+  const pessoa = `Cliente: ${name} — WhatsApp: ${phone}`;
+  const end1 = `${rua}, ${num}${comp ? " - " + comp : ""}`;
+  const end2 = `${bairro} — ${cidade}/${uf}`;
+  const end3 = `CEP: ${cep}${ref ? " • Ref: " + ref : ""}`;
+  const address = `Endereço:%0A${end1}%0A${end2}%0A${end3}`;
+
+  return `${header}%0A%0A${items}%0A%0ATotal: ${total}%0A%0A${pessoa}%0A${address}`;
 }
 
-checkoutBtn.addEventListener("click", () => {
-  if (cart.length === 0)
-    return Toastify({ text: "Carrinho vazio.", duration: 1800 }).showToast();
-  if (addressInput.value.trim().length < 5) {
-    addressWarn.classList.remove("hidden");
-    addressInput.focus();
-    return;
-  }
-  addressWarn.classList.add("hidden");
+document.getElementById("checkout-btn")?.addEventListener("click", () => {
+  if (!validateForm()) return;
   const url = `https://wa.me/${WHATS_PHONE.replace(
     /\D/g,
     ""
@@ -398,6 +503,7 @@ checkoutBtn.addEventListener("click", () => {
   window.open(url, "_blank");
   cart = [];
   updateCart();
+  closeCart();
   Toastify({
     text: "Pedido enviado!",
     duration: 2000,
@@ -406,7 +512,7 @@ checkoutBtn.addEventListener("click", () => {
 });
 
 // ===================
-//   DEPOIMENTOS (fade + avatar pulse)
+//  DEPOIMENTOS
 // ===================
 const depoAvatars = document.getElementById("depo-avatars");
 const depoPlaceholder = document.getElementById("depo-placeholder");
@@ -422,8 +528,7 @@ function renderDepoAvatars() {
     (t) => `
     <button type="button" class="group relative" data-id="${t.id}" aria-label="Ver depoimento de ${t.name}">
       <div class="size-14 md:size-16 rounded-full overflow-hidden ring-1 ring-white/10 bg-white/10 grid place-items-center group-[.active]:ring-2 group-[.active]:ring-brand">
-        <img src="${t.avatar}" alt="${t.name}" class="w-full h-full object-cover"
-             onerror="this.parentElement.classList.add('bg-white/10'); this.remove();">
+        <img src="${t.avatar}" alt="${t.name}" class="w-full h-full object-cover" onerror="this.parentElement.classList.add('bg-white/10'); this.remove();">
       </div>
       <span class="block text-xs text-white/60 mt-1 text-center">${t.name}</span>
     </button>
@@ -436,25 +541,18 @@ function renderDepoAvatars() {
     );
   });
 }
-
 function selectTestimonial(id) {
   const t = TESTIMONIALS.find((x) => x.id === id);
   if (!t) return;
-
   depoSelected = id;
-
   depoPlaceholder.classList.add("hidden");
   depoContent.classList.remove("hidden");
-
-  // re-animar texto
   depoContent.classList.remove("animate-fade-in");
   void depoContent.offsetWidth;
   depoText.textContent = `"${t.text}"`;
   depoName.textContent = t.name;
   depoRole.textContent = t.role;
   depoContent.classList.add("animate-fade-in");
-
-  // destacar avatar ativo
   depoAvatars
     .querySelectorAll("button")
     .forEach((b) => b.classList.remove("active"));
@@ -472,13 +570,11 @@ function selectTestimonial(id) {
 }
 
 // ===================
-//  REVEAL + RIPPLE + HEADER ON SCROLL
+//  RIPPLE + HEADER
 // ===================
 document
   .querySelectorAll("[data-animate]")
   .forEach((el) => observer.observe(el));
-
-// ripple para .btn/.btn-ghost/[data-ripple]
 (function initRipple(root = document) {
   root.querySelectorAll(".btn, .btn-ghost, [data-ripple]").forEach((btn) => {
     if (btn._rippleInit) return;
@@ -498,24 +594,19 @@ document
     });
   });
 })();
-
-// header muda ao rolar
 const header = document.querySelector("header.sticky");
-if (header) {
+if (header)
   window.addEventListener("scroll", () => {
     const scrolled = (window.scrollY || 0) > 8;
     header.classList.toggle("shadow-lg", scrolled);
     header.classList.toggle("bg-white/10", scrolled);
     header.classList.toggle("backdrop-blur-md", scrolled);
   });
-}
 
-// ===== HERO PRESENTATION =====
-(function heroIntro(){
-  const h = document.querySelector('[data-hero-title]');
-  if(!h) return;
-
-  // wrap por palavra preservando spans internos
+// ===== HERO PRESENTATION (stagger/parallax) =====
+(function heroIntro() {
+  const h = document.querySelector("[data-hero-title]");
+  if (!h) return;
   let delay = 0;
   function wrap(node) {
     if (node.nodeType === 3) {
@@ -534,60 +625,42 @@ if (header) {
       });
       node.replaceWith(frag);
     } else if (node.nodeType === 1) {
-      // se for o destaque, não embrulha os filhos
       if (node.classList && node.classList.contains("hero-accent")) return;
       Array.from(node.childNodes).forEach(wrap);
     }
   }
-  h.classList.add('hero-stagger');
+  h.classList.add("hero-stagger");
   Array.from(h.childNodes).forEach(wrap);
-
-  // sub e CTAs
-  const sub = document.querySelector('.hero-sub');
-  const cta = document.querySelector('[data-hero-cta]');
-  setTimeout(()=>{ sub && (sub.style.willChange='opacity'); }, 50);
-
-  // anima CTAs com atraso progressivo
-  if (cta){
-    cta.classList.add('is-in');
-    cta.querySelectorAll('a').forEach((a,i)=> a.style.setProperty('--d', (400 + i*120) + 'ms'));
+  const sub = document.querySelector(".hero-sub");
+  const cta = document.querySelector("[data-hero-cta]");
+  setTimeout(() => {
+    sub && (sub.style.willChange = "opacity");
+  }, 50);
+  if (cta) {
+    cta.classList.add("is-in");
+    cta
+      .querySelectorAll("a")
+      .forEach((a, i) => a.style.setProperty("--d", 400 + i * 120 + "ms"));
   }
-
-  // leve parallax do background do hero
-  const hero = document.querySelector('section.bg-hero');
-  if(hero){
+  const hero = document.querySelector("section.bg-hero");
+  if (hero) {
     let raf = 0;
-    hero.addEventListener('mousemove', (e)=>{
+    hero.addEventListener("mousemove", (e) => {
       cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(()=>{
+      raf = requestAnimationFrame(() => {
         const r = hero.getBoundingClientRect();
-        const px = (e.clientX - r.left)/r.width - .5;
-        const py = (e.clientY - r.top)/r.height - .5;
-        hero.style.backgroundPosition = `${50 + px*4}% ${50 + py*3}%`;
+        const px = (e.clientX - r.left) / r.width - 0.5;
+        const py = (e.clientY - r.top) / r.height - 0.5;
+        hero.style.backgroundPosition = `${50 + px * 4}% ${50 + py * 3}%`;
       });
     });
-    hero.addEventListener('mouseleave', ()=> hero.style.backgroundPosition = '50% 50%');
+    hero.addEventListener(
+      "mouseleave",
+      () => (hero.style.backgroundPosition = "50% 50%")
+    );
   }
 })();
 
-(function () {
-  const strength = 12;
-  document.querySelectorAll("[data-magnet]").forEach((btn) => {
-    let af = 0;
-    btn.addEventListener("mousemove", (e) => {
-      cancelAnimationFrame(af);
-      af = requestAnimationFrame(() => {
-        const r = btn.getBoundingClientRect();
-        const x = ((e.clientX - r.left) / r.width - 0.5) * strength;
-        const y = ((e.clientY - r.top) / r.height - 0.5) * strength;
-        btn.style.transform = `translate(${x}px,${y}px)`;
-      });
-    });
-    btn.addEventListener("mouseleave", () => {
-      btn.style.transform = "translate(0,0)";
-    });
-  });
-})();
 // ===================
 //   INIT
 // ===================
