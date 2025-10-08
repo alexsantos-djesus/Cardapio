@@ -3,11 +3,12 @@
 Uma landing e um cardápio digital estático com **carrinho**, **checkout via WhatsApp** e **área administrativa** de itens.  
 Pensado para **portfolio/vendas**: rápido de adaptar, bonito e com animações modernas.
 
-> **Versão:** 1.2  •  **Data:** 2025-10-06
+> **Versão:** 1.2 • **Data:** 2025-10-06
 
 ---
 
 ## 🧭 Sumário
+
 - [O que tem de novo (v1.2)](#-o-que-tem-de-novo-v12)
 - [Screenshots](#-screenshots)
 - [Demo local](#-demo-local)
@@ -24,10 +25,10 @@ Pensado para **portfolio/vendas**: rápido de adaptar, bonito e com animações 
 ## ✨ O que tem de novo (v1.2)
 
 - **Hero cinematográfico**
-  - Animação *stagger* por palavra no título
+  - Animação _stagger_ por palavra no título
   - Destaque “**cardápio digital**” com gradiente/shine
   - Parallax leve do background
-  - CTAs com *magnetic hover* + *ripple*
+  - CTAs com _magnetic hover_ + _ripple_
   - Indicador “scroll” sutil
 - **Depoimentos interativos:** fotos embaixo; conteúdo aparece ao clicar; avatar selecionado pulsa.
 - **Modal do carrinho** sólido com **fade-in/out** e **pop/pop-out**.
@@ -39,6 +40,7 @@ Pensado para **portfolio/vendas**: rápido de adaptar, bonito e com animações 
 ## 📸 Screenshots
 
 **DESKTOP**
+
 <p align="center">
   <img src="assets/header.png" alt="Hero — Cardápio Demo" width="980">
 </p>
@@ -60,10 +62,11 @@ Pensado para **portfolio/vendas**: rápido de adaptar, bonito e com animações 
 </p>
 
 <p align="center">
-  <img src="assets/demostração.jpeg" alt="Demostração — Cardápio Demo" width="980">
+  <img src="assets/demo.jpeg" alt="Demostração — Cardápio Demo" width="980">
 </p>
 
 **MOBILE**
+
 <p align="center">
   <img src="assets/header-m.jpeg" alt="Hero — Cardápio Demo" width="980">
 </p>
@@ -85,13 +88,14 @@ Pensado para **portfolio/vendas**: rápido de adaptar, bonito e com animações 
 </p>
 
 <p align="center">
-  <img src="assets/demostração.jpeg" alt="Demostração — Cardápio Demo" width="980">
+  <img src="assets/demo.jpeg" alt="Demostração — Cardápio Demo" width="980">
 </p>
 
 <details>
   <summary>Ver lado a lado (opcional)</summary>
 
 **DESKTOP**
+
   <p align="center">
     <img src="assets/header.png" alt="Hero" width="49%">
     <img src="assets/cardapio1.png" alt="Cardápio1" width="49%">
@@ -99,9 +103,8 @@ Pensado para **portfolio/vendas**: rápido de adaptar, bonito e com animações 
     <img src="assets/depoimentos.png" alt="Seção de depoimentos" width="49%">
     <img src="assets/carrinho.png" alt="Carrinho" width="49%">
     <img src="assets/dados-pedido.png" alt="Dados pedido" width="49%">
-    <img src="assets/demostração.jpeg" alt="Dados pedido" width="49%">
+    <img src="assets/demo.jpeg" alt="Dados pedido" width="49%">
   </p>
-
 
 **MOBILE**
 
@@ -111,7 +114,7 @@ Pensado para **portfolio/vendas**: rápido de adaptar, bonito e com animações 
       <img src="assets/depoimentos-m.jpeg" alt="Seção de depoimentos" width="49%">
       <img src="assets/carrinho-m.jpeg" alt="Carrinho" width="49%">
       <img src="assets/dados-m.jpeg" alt="Dados pedido" width="49%">
-      <img src="assets/demostração.jpeg" alt="Dados pedido" width="49%">
+      <img src="assets/demo.jpeg" alt="Dados pedido" width="49%">
     </p>
 </details>
 
@@ -120,11 +123,10 @@ Pensado para **portfolio/vendas**: rápido de adaptar, bonito e com animações 
 ## 🚀 Demo local
 
 1. **Baixe o ZIP** e extraia.
-2. Abra a pasta no VS Code e use **Live Server** *ou* rode um servidor simples:
+2. Abra a pasta no VS Code e use **Live Server** _ou_ rode um servidor simples:
    - Python: `python -m http.server 5500`
    - Node: `npx http-server . -p 5500`
 3. Acesse: `http://localhost:5500/index.html`
-
 
 ---
 
@@ -170,6 +172,7 @@ Pensado para **portfolio/vendas**: rápido de adaptar, bonito e com animações 
 ## 🛠 Admin (CRUD de itens)
 
 Abra `admin.html` para:
+
 - **Criar/editar/remover** itens do cardápio;
 - **Filtrar por categoria** e **buscar por nome**;
 - **Exportar JSON** dos itens ou **Importar JSON** salvo;
@@ -210,8 +213,8 @@ O `tailwind.config.js` contém **keyframes** e **animations** usados.
 ## 📒 Changelog — v1.2
 
 - Hero com **stagger por palavra**, gradiente/shine e **parallax** suave.
-- **Ripple** e *magnetic hover* nos botões.
-- **Modal** do carrinho com *fade/pop*.
+- **Ripple** e _magnetic hover_ nos botões.
+- **Modal** do carrinho com _fade/pop_.
 - **Depoimentos** por avatar com fade-in.
 - **Reveal on Scroll** com fallback.
 - Micro animações e `lazy-loading`.
