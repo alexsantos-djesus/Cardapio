@@ -68,27 +68,27 @@ Pensado para **portfolio/vendas**: rápido de adaptar, bonito e com animações 
 **MOBILE**
 
 <p align="center">
-  <img src="assets/header-m.jpeg" alt="Hero — Cardápio Demo" width="980">
+  <img src="assets/header-m.jpeg" alt="Hero — Cardápio Demo m" width="980">
 </p>
 
 <p align="center">
-  <img src="assets/cardapio-m.jpeg" alt="Cardápio — Cardápio Demo" width="980">
+  <img src="assets/cardapio-m.jpeg" alt="Cardápio — Cardápio Demo m" width="980">
 </p>
 
 <p align="center">
-  <img src="assets/depoimentos-m.jpeg" alt="Seção de depoimentos — Cardápio Demo" width="980">
+  <img src="assets/depoimentos-m.jpeg" alt="Seção de depoimentos — Cardápio Demo m" width="980">
 </p>
 
 <p align="center">
-  <img src="assets/carrinho-m.jpeg" alt="Carrinho — Cardápio Demo" width="980">
+  <img src="assets/carrinho-m.jpeg" alt="Carrinho — Cardápio Demo m" width="980">
 </p>
 
 <p align="center">
-  <img src="assets/dados-m.jpeg" alt="Dados pedido — Cardápio Demo" width="980">
+  <img src="assets/dados-m.jpeg" alt="Dados pedido — Cardápio Demo m" width="980">
 </p>
 
 <p align="center">
-  <img src="assets/demo.jpeg" alt="Demostração — Cardápio Demo" width="980">
+  <img src="assets/demo.jpeg" alt="Demostração — Cardápio Demo m" width="980">
 </p>
 
 <details>
@@ -109,12 +109,12 @@ Pensado para **portfolio/vendas**: rápido de adaptar, bonito e com animações 
 **MOBILE**
 
   <p align="center">
-      <img src="assets/header-m.jpeg" alt="Hero" width="49%">
-      <img src="assets/cardapio-m.jpegg" alt="Cardápio1" width="49%">
-      <img src="assets/depoimentos-m.jpeg" alt="Seção de depoimentos" width="49%">
-      <img src="assets/carrinho-m.jpeg" alt="Carrinho" width="49%">
-      <img src="assets/dados-m.jpeg" alt="Dados pedido" width="49%">
-      <img src="assets/demo.jpeg" alt="Dados pedido" width="49%">
+      <img src="assets/header-m.jpeg" alt="Hero-m" width="49%">
+      <img src="assets/cardapio-m.jpegg" alt="Cardápio-m" width="49%">
+      <img src="assets/depoimentos-m.jpeg" alt="Seção de depoimentos-m" width="49%">
+      <img src="assets/carrinho-m.jpeg" alt="Carrinho-m" width="49%">
+      <img src="assets/dados-m.jpeg" alt="Dados pedido-m" width="49%">
+      <img src="assets/demo.jpeg" alt="Dados pedido-m" width="49%">
     </p>
 </details>
 
