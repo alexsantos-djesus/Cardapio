@@ -51,7 +51,6 @@ Pensado para **portfolio/vendas**: rápido de adaptar, bonito e com animações 
 </p>
 <p align="center">
   <img src="assets/dados-pedido.png"  alt="Dados do pedido"              width="48%">
-  <img src="assets/demo.jpeg"         alt="Demostração"                  width="48%">
 </p>
 
 **MOBILE**
