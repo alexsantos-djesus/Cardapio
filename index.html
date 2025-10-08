@@ -1,316 +1,707 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cardápio Demo — Portfolio</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cardápio Demo — Portfolio</title>
 
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
 
-  <!-- Icons & Toast -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css" />
+    <!-- Icons & Toast -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+    />
 
-  <!-- Tailwind output -->
-  <link rel="stylesheet" href="./styles/output.css" />
+    <!-- Tailwind output -->
+    <link rel="stylesheet" href="./styles/output.css" />
 
-  <!-- META OG (preencha para o portfolio) -->
-  <meta property="og:title" content="Cardápio Demo — Portfolio" />
-  <meta property="og:description" content="Demonstração de cardápio digital com carrinho e checkout via WhatsApp." />
-  <meta property="og:image" content="./assets/cardapio.png" />
-  <meta name="theme-color" content="#16a34a" />
+    <!-- META OG (preencha para o portfolio) -->
+    <meta property="og:title" content="Cardápio Demo — Portfolio" />
+    <meta
+      property="og:description"
+      content="Demonstração de cardápio digital com carrinho e checkout via WhatsApp."
+    />
+    <meta property="og:image" content="./assets/cardapio.png" />
+    <meta name="theme-color" content="#16a34a" />
 
-  <style>
-    /* ===== HERO FX ===== */
-    @keyframes heroUp{0%{opacity:0;transform:translateY(16px) scale(.98)}100%{opacity:1;transform:translateY(0) scale(1)}}
-    @keyframes heroFade{0%{opacity:0}100%{opacity:1}}
-    @keyframes btnPop{0%{opacity:0;transform:translateY(10px) scale(.98)}100%{opacity:1;transform:translateY(0) scale(1)}}
-    @keyframes bgPan{0%{background-position:0% 50%}100%{background-position:200% 50%}}
-    @keyframes shine{0%{background-position:200% 0}100%{background-position:-200% 0}}
-    @keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+    <style>
+      /* ===== HERO FX ===== */
+      @keyframes heroUp {
+        0% {
+          opacity: 0;
+          transform: translateY(16px) scale(0.98);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+      }
+      @keyframes heroFade {
+        0% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+      @keyframes btnPop {
+        0% {
+          opacity: 0;
+          transform: translateY(10px) scale(0.98);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+      }
+      @keyframes bgPan {
+        0% {
+          background-position: 0% 50%;
+        }
+        100% {
+          background-position: 200% 50%;
+        }
+      }
+      @keyframes shine {
+        0% {
+          background-position: 200% 0;
+        }
+        100% {
+          background-position: -200% 0;
+        }
+      }
+      @keyframes floatY {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-6px);
+        }
+      }
 
-    .hero-stagger .w{
-      display:inline-block; opacity:0; transform:translateY(16px) scale(.98);
-      animation:heroUp .7s cubic-bezier(.22,1,.36,1) both; animation-delay:var(--d,0ms);
-    }
-    .hero-sub{opacity:0; animation:heroFade .7s ease .45s both}
-    .hero-cta > a{opacity:0; transform:translateY(8px) scale(.98)}
-    .hero-cta.is-in > a{animation:btnPop .6s cubic-bezier(.22,1,.36,1) both; animation-delay:var(--d,0ms)}
+      .hero-stagger .w {
+        display: inline-block;
+        opacity: 0;
+        transform: translateY(16px) scale(0.98);
+        animation: heroUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+        animation-delay: var(--d, 0ms);
+      }
+      .hero-sub {
+        opacity: 0;
+        animation: heroFade 0.7s ease 0.45s both;
+      }
+      .hero-cta > a {
+        opacity: 0;
+        transform: translateY(8px) scale(0.98);
+      }
+      .hero-cta.is-in > a {
+        animation: btnPop 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+        animation-delay: var(--d, 0ms);
+      }
 
-    /* brilho/gradiente do destaque */
-    .hero-accent, .hero-accent .w{
-      background:linear-gradient(90deg,#10b981,#22c55e,#16a34a,#10b981);
-      -webkit-background-clip:text; background-clip:text; color:transparent;
-      background-size:200% auto; animation:bgPan 6s linear infinite;
-    }
+      /* brilho/gradiente do destaque */
+      .hero-accent,
+      .hero-accent .w {
+        background: linear-gradient(90deg, #10b981, #22c55e, #16a34a, #10b981);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        background-size: 200% auto;
+        animation: bgPan 6s linear infinite;
+      }
 
-    /* indicador de scroll  */
-    .scroll-cue{height:28px; align-items:center}
-    .scroll-cue span{
-      width:20px;height:28px;border:2px solid rgba(255,255,255,.35);
-      border-radius:20px; position:relative; display:inline-block; opacity:.8
-    }
-    .scroll-cue span:after{
-      content:""; position:absolute; left:50%; top:6px; width:4px; height:6px; margin-left:-2px;
-      background:#fff; border-radius:2px; animation:floatY 1.6s ease-in-out infinite
-    }
+      /* indicador de scroll  */
+      .scroll-cue {
+        height: 28px;
+        align-items: center;
+      }
+      .scroll-cue span {
+        width: 20px;
+        height: 28px;
+        border: 2px solid rgba(255, 255, 255, 0.35);
+        border-radius: 20px;
+        position: relative;
+        display: inline-block;
+        opacity: 0.8;
+      }
+      .scroll-cue span:after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: 6px;
+        width: 4px;
+        height: 6px;
+        margin-left: -2px;
+        background: #fff;
+        border-radius: 2px;
+        animation: floatY 1.6s ease-in-out infinite;
+      }
 
-    /* leve parallax suaviza transição do bg */
-    section.bg-hero{transition:background-position .25s ease}
+      /* leve parallax suaviza transição do bg */
+      section.bg-hero {
+        transition: background-position 0.25s ease;
+      }
 
-    .btn[data-magnet]{transition:transform .18s ease; will-change:transform}
-  </style>
-
-</head>
-<body>
-  <!-- Navbar -->
-  <header class="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-white/5 bg-white/5 border-b border-white/10 smooth">
-    <div class="container flex items-center justify-between h-16" data-animate="fade-up">
-      <a href="#" class="flex items-center gap-3 smooth hover:opacity-90">
-        <div class="size-9 rounded-xl bg-brand/20 grid place-content-center smooth will hover:scale-105">
-          <i class="fa-solid fa-burger text-brand"></i>
-        </div>
-        <div class="leading-tight">
-          <p class="font-bold">Cardápio Demo</p>
-          <p class="text-xs text-white/60">Feito para Portfolio</p>
-        </div>
-      </a>
-      <nav class="hidden md:flex items-center gap-6 text-sm text-white/80">
-        <a href="#menu" class="hover:text-white transition underline-anim smooth" data-ripple data-magnet>Cardápio</a>
-        <a href="#como-funciona" class="hover:text-white transition underline-anim smooth" data-ripple data-magnet>
-          Como funciona
-        </a>
-        <a href="#depoimentos" class="hover:text-white transition underline-anim smooth">Depoimentos</a>
-      </nav>
-      <button id="cart-btn" class="btn smooth will hover:-translate-y-0.5" data-ripple>
-        <i class="fa-solid fa-cart-plus"></i>
-        Carrinho (<span id="cart-count">0</span>)
-      </button>
-    </div>
-  </header>
-
-  <!-- Hero -->
-  <section class="relative bg-hero bg-cover bg-center will">
-    <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-[#0b0e14]"></div>
-    <div class="container relative py-16 md:py-24">
-      <div class="max-w-2xl" data-animate="fade-up">
-        <h1 class="text-4xl md:text-5xl font-bold leading-tight" data-hero-title>
-          Seu restaurante com um
-          <span class="hero-accent text-brand">cardápio digital</span>
-          bonito, rápido e que vende.
-        </h1>
-
-        <p class="mt-4 text-white/80 hero-sub">
-          Demonstração com categorias, carrinho, cálculo de totais e checkout por WhatsApp. Ideal para apresentar no seu portfolio e vender o serviço.
-        </p>
-
-        <div class="mt-6 flex items-center gap-3 hero-cta" data-hero-cta>
-          <a href="#menu" class="btn smooth will hover:-translate-y-0.5" data-ripple>
-            <i class="fa-solid fa-utensils"></i> Ver cardápio
-          </a>
-          <a href="#como-funciona" class="btn-ghost smooth will hover:-translate-y-0.5" data-ripple>
-            <i class="fa-solid fa-circle-play"></i> Como funciona
-          </a>
-        </div>
-
-        <!-- indicador de scroll opcional -->
-        <div class="scroll-cue mt-10 hidden md:flex" aria-hidden="true"><span></span></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Filtros de categoria -->
-  <section class="py-10" id="menu">
-    <div class="container">
-      <div class="flex items-end justify-between gap-4 mb-6" data-animate="fade-up">
-        <h2 class="section-title">Cardápio</h2>
-        <div class="text-sm text-white/60">Selecione uma categoria</div>
-      </div>
-
-      <div id="category-chips" class="flex flex-wrap gap-2" data-animate="fade-up"></div>
-
-      <!-- Grid de produtos -->
-      <div id="menu-grid" class="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 will"></div>
-    </div>
-  </section>
-
-  <!-- Como funciona -->
-  <section class="py-14 bg-white/5 border-y border-white/10" id="como-funciona">
-    <div class="container grid md:grid-cols-3 gap-6">
-      <div class="card p-6 will smooth hover:-translate-y-1" data-animate="fade-up">
-        <div class="size-11 rounded-xl bg-brand/20 grid place-content-center mb-3 smooth will group-hover:scale-105">
-          <i class="fa-solid fa-list text-brand"></i>
-        </div>
-        <h3 class="font-semibold text-lg">Escolha seus itens</h3>
-        <p class="text-white/70 text-sm mt-1">Navegue pelas categorias e adicione seus favoritos ao carrinho.</p>
-      </div>
-      <div class="card p-6 will smooth hover:-translate-y-1" data-animate="fade-up">
-        <div class="size-11 rounded-xl bg-brand/20 grid place-content-center mb-3 smooth will group-hover:scale-105">
-          <i class="fa-solid fa-cart-shopping text-brand"></i>
-        </div>
-        <h3 class="font-semibold text-lg">Confira o pedido</h3>
-        <p class="text-white/70 text-sm mt-1">Veja o resumo, altere quantidades e calcule o total.</p>
-      </div>
-      <div class="card p-6 will smooth hover:-translate-y-1" data-animate="fade-up">
-        <div class="size-11 rounded-xl bg-brand/20 grid place-content-center mb-3 smooth will group-hover:scale-105">
-          <i class="fa-brands fa-whatsapp text-brand"></i>
-        </div>
-        <h3 class="font-semibold text-lg">Finalize no WhatsApp</h3>
-        <p class="text-white/70 text-sm mt-1">Envio automático do pedido com endereço e observações.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Depoimentos -->
-  <section class="py-16" id="depoimentos">
-    <div class="container">
-      <h2 class="section-title text-center" data-animate="fade-up">Depoimentos</h2>
-
-      <!-- Card do depoimento -->
-      <div class="mt-6">
-        <div class="card bg-[#171b22] border-white/10 p-6 md:p-8 max-w-4xl mx-auto will" data-animate="fade-up">
-          <!-- placeholder quando nenhum selecionado -->
-          <div id="depo-placeholder" class="text-white/50 flex flex-col items-center gap-3 text-center">
-            <i class="fa-solid fa-quote-left text-3xl md:text-4xl opacity-60"></i>
-            <p class="text-base md:text-lg">Selecione um cliente abaixo para ver o depoimento.</p>
-          </div>
-
-          <!-- conteúdo quando selecionado -->
-          <blockquote id="depo-content" class="hidden text-center">
-            <i class="fa-solid fa-quote-left text-2xl opacity-60 mx-auto"></i>
-            <p id="depo-text" class="mt-3 text-lg md:text-xl leading-relaxed text-white/90"></p>
-            <footer class="mt-4 text-sm text-white/60">
-              — <span id="depo-name"></span>, <span id="depo-role"></span>
-            </footer>
-          </blockquote>
-        </div>
-      </div>
-
-      <!-- Avatares -->
-      <div id="depo-avatars" class="mt-6 flex flex-wrap items-center justify-center gap-4" data-animate="fade-up"></div>
-    </div>
-  </section>
-
-  <!-- Footer + CTA -->
-  <footer class="border-t border-white/10">
-    <div class="container py-10 flex flex-col md:flex-row items-center justify-between gap-6" data-animate="fade-up">
-      <div class="smooth will hover:translate-x-0">
-        <p class="font-semibold">Quer um igual pro seu negócio?</p>
-        <p class="text-white/70 text-sm">Entre em contato e eu adapto com sua marca, cores e produtos.</p>
-      </div>
-      <a id="cta-whatsapp" class="btn smooth will hover:-translate-y-0.5" href="#" target="_blank" rel="noopener" data-ripple>
-        <i class="fa-brands fa-whatsapp"></i> Falar no WhatsApp
-      </a>
-    </div>
-  </footer>
-
-  <!-- Modal do carrinho -->
-  <div id="cart-modal" class="fixed inset-0 z-50 hidden">
-    <div id="cart-overlay" class="absolute inset-0 bg-black/80 backdrop-blur-sm"></div>
-
-    <div class="relative h-full w-full grid place-items-center p-4">
-      <!-- painel com proporção controlada -->
+      .btn[data-magnet] {
+        transition: transform 0.18s ease;
+        will-change: transform;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <header
+      class="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-white/5 bg-white/5 border-b border-white/10 smooth"
+    >
       <div
-        id="cart-panel"
-        class="card bg-[#0f121a] border-white/20 w-[min(92vw,720px)] max-h-[85vh]
-              shadow-2xl will overflow-hidden rounded-2xl flex flex-col"
+        class="container flex items-center justify-between h-16"
+        data-animate="fade-up"
       >
-        <!-- header fixo -->
-        <div class="p-4 border-b border-white/10 flex items-center justify-between shrink-0">
-          <h3 class="font-semibold">Seu carrinho</h3>
-          <button id="close-modal-btn" class="btn-ghost smooth" data-ripple>
-            <i class="fa-solid fa-xmark"></i>
-          </button>
+        <a href="#" class="flex items-center gap-3 smooth hover:opacity-90">
+          <div
+            class="size-9 rounded-xl bg-brand/20 grid place-content-center smooth will hover:scale-105"
+          >
+            <i class="fa-solid fa-burger text-brand"></i>
+          </div>
+          <div class="leading-tight">
+            <p class="font-bold">Cardápio Demo</p>
+            <p class="text-xs text-white/60">Feito para Portfolio</p>
+          </div>
+        </a>
+        <nav class="hidden md:flex items-center gap-6 text-sm text-white/80">
+          <a
+            href="#menu"
+            class="hover:text-white transition underline-anim smooth"
+            data-ripple
+            data-magnet
+            >Cardápio</a
+          >
+          <a
+            href="#como-funciona"
+            class="hover:text-white transition underline-anim smooth"
+            data-ripple
+            data-magnet
+          >
+            Como funciona
+          </a>
+          <a
+            href="#depoimentos"
+            class="hover:text-white transition underline-anim smooth"
+            >Depoimentos</a
+          >
+        </nav>
+        <button
+          id="cart-btn"
+          class="btn smooth will hover:-translate-y-0.5"
+          data-ripple
+        >
+          <i class="fa-solid fa-cart-plus"></i>
+          Carrinho (<span id="cart-count">0</span>)
+        </button>
+      </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="relative bg-hero bg-cover bg-center will">
+      <div
+        class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-[#0b0e14]"
+      ></div>
+      <div class="container relative py-16 md:py-24">
+        <div class="max-w-2xl" data-animate="fade-up">
+          <h1
+            class="text-4xl md:text-5xl font-bold leading-tight"
+            data-hero-title
+          >
+            Seu restaurante com um
+            <span class="hero-accent text-brand">cardápio digital</span>
+            bonito, rápido e que vende.
+          </h1>
+
+          <p class="mt-4 text-white/80 hero-sub">
+            Demonstração com categorias, carrinho, cálculo de totais e checkout
+            por WhatsApp. Ideal para apresentar no seu portfolio e vender o
+            serviço.
+          </p>
+
+          <div class="mt-6 flex items-center gap-3 hero-cta" data-hero-cta>
+            <a
+              href="#menu"
+              class="btn smooth will hover:-translate-y-0.5"
+              data-ripple
+            >
+              <i class="fa-solid fa-utensils"></i> Ver cardápio
+            </a>
+            <a
+              href="#como-funciona"
+              class="btn-ghost smooth will hover:-translate-y-0.5"
+              data-ripple
+            >
+              <i class="fa-solid fa-circle-play"></i> Como funciona
+            </a>
+          </div>
+
+          <!-- indicador de scroll opcional -->
+          <div class="scroll-cue mt-10 hidden md:flex" aria-hidden="true">
+            <span></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Filtros de categoria -->
+    <section class="py-10" id="menu">
+      <div class="container">
+        <div
+          class="flex items-end justify-between gap-4 mb-6"
+          data-animate="fade-up"
+        >
+          <h2 class="section-title">Cardápio</h2>
+          <div class="text-sm text-white/60">Selecione uma categoria</div>
         </div>
 
-        <!-- ETAPA 1: Itens (conteúdo rola) -->
-        <div id="cart-step-1" class="flex-1 flex flex-col min-h-0">
-          <div id="cart-items" class="p-4 space-y-3 overflow-auto"></div>
-          <div class="p-4 border-t border-white/10 flex items-center justify-between shrink-0">
-            <div class="text-white/80">
-              Total: <strong id="cart-total" class="text-white">R$ 0,00</strong>
+        <div
+          id="category-chips"
+          class="flex flex-wrap gap-2"
+          data-animate="fade-up"
+        ></div>
+
+        <!-- Grid de produtos -->
+        <div
+          id="menu-grid"
+          class="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 will"
+        ></div>
+      </div>
+    </section>
+
+    <!-- Como funciona -->
+    <section
+      class="py-14 bg-white/5 border-y border-white/10"
+      id="como-funciona"
+    >
+      <div class="container grid md:grid-cols-3 gap-6">
+        <div
+          class="card p-6 will smooth hover:-translate-y-1"
+          data-animate="fade-up"
+        >
+          <div
+            class="size-11 rounded-xl bg-brand/20 grid place-content-center mb-3 smooth will group-hover:scale-105"
+          >
+            <i class="fa-solid fa-list text-brand"></i>
+          </div>
+          <h3 class="font-semibold text-lg">Escolha seus itens</h3>
+          <p class="text-white/70 text-sm mt-1">
+            Navegue pelas categorias e adicione seus favoritos ao carrinho.
+          </p>
+        </div>
+        <div
+          class="card p-6 will smooth hover:-translate-y-1"
+          data-animate="fade-up"
+        >
+          <div
+            class="size-11 rounded-xl bg-brand/20 grid place-content-center mb-3 smooth will group-hover:scale-105"
+          >
+            <i class="fa-solid fa-cart-shopping text-brand"></i>
+          </div>
+          <h3 class="font-semibold text-lg">Confira o pedido</h3>
+          <p class="text-white/70 text-sm mt-1">
+            Veja o resumo, altere quantidades e calcule o total.
+          </p>
+        </div>
+        <div
+          class="card p-6 will smooth hover:-translate-y-1"
+          data-animate="fade-up"
+        >
+          <div
+            class="size-11 rounded-xl bg-brand/20 grid place-content-center mb-3 smooth will group-hover:scale-105"
+          >
+            <i class="fa-brands fa-whatsapp text-brand"></i>
+          </div>
+          <h3 class="font-semibold text-lg">Finalize no WhatsApp</h3>
+          <p class="text-white/70 text-sm mt-1">
+            Envio automático do pedido com endereço e observações.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Depoimentos -->
+    <section class="py-16" id="depoimentos">
+      <div class="container">
+        <h2 class="section-title text-center" data-animate="fade-up">
+          Depoimentos
+        </h2>
+
+        <!-- Card do depoimento -->
+        <div class="mt-6">
+          <div
+            class="card bg-[#171b22] border-white/10 p-6 md:p-8 max-w-4xl mx-auto will"
+            data-animate="fade-up"
+          >
+            <!-- placeholder quando nenhum selecionado -->
+            <div
+              id="depo-placeholder"
+              class="text-white/50 flex flex-col items-center gap-3 text-center"
+            >
+              <i
+                class="fa-solid fa-quote-left text-3xl md:text-4xl opacity-60"
+              ></i>
+              <p class="text-base md:text-lg">
+                Selecione um cliente abaixo para ver o depoimento.
+              </p>
             </div>
-            <button id="continue-btn" class="btn">Continuar compra</button>
+
+            <!-- conteúdo quando selecionado -->
+            <blockquote id="depo-content" class="hidden text-center">
+              <i class="fa-solid fa-quote-left text-2xl opacity-60 mx-auto"></i>
+              <p
+                id="depo-text"
+                class="mt-3 text-lg md:text-xl leading-relaxed text-white/90"
+              ></p>
+              <footer class="mt-4 text-sm text-white/60">
+                — <span id="depo-name"></span>, <span id="depo-role"></span>
+              </footer>
+            </blockquote>
           </div>
         </div>
 
-        <!-- ETAPA 2: Dados (conteúdo rola) -->
-        <div id="cart-step-2" class="hidden flex-1 flex flex-col min-h-0">
-          <div class="p-4 space-y-4 overflow-auto">
-            <h4 class="font-medium">Dados para entrega</h4>
+        <!-- Avatares -->
+        <div
+          id="depo-avatars"
+          class="mt-6 flex flex-wrap items-center justify-center gap-4"
+          data-animate="fade-up"
+        ></div>
+      </div>
+    </section>
 
-            <div class="grid md:grid-cols-2 gap-3">
-              <div>
-                <label class="text-sm text-white/80">Nome completo *</label>
-                <input id="inp-name" type="text"
-                      class="mt-1 w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 outline-none focus:border-brand"/>
-              </div>
-              <div>
-                <label class="text-sm text-white/80">WhatsApp *</label>
-                <input id="inp-phone" type="text" placeholder="(00) 00000-0000"
-                      class="mt-1 w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 outline-none focus:border-brand"/>
-              </div>
+    <!-- Footer + CTA -->
+    <footer class="border-t border-white/10">
+      <div
+        class="container py-10 flex flex-col md:flex-row items-center justify-between gap-6"
+        data-animate="fade-up"
+      >
+        <div class="smooth will hover:translate-x-0">
+          <p class="font-semibold">Quer um igual pro seu negócio?</p>
+          <p class="text-white/70 text-sm">
+            Entre em contato e eu adapto com sua marca, cores e produtos.
+          </p>
+        </div>
+        <a
+          id="cta-whatsapp"
+          class="btn smooth will hover:-translate-y-0.5"
+          href="#"
+          target="_blank"
+          rel="noopener"
+          data-ripple
+        >
+          <i class="fa-brands fa-whatsapp"></i> Falar no WhatsApp
+        </a>
+      </div>
+    </footer>
 
-              <div>
-                <label class="text-sm text-white/80">CEP *</label>
-                <input id="inp-cep" type="text" placeholder="00000-000"
-                      class="mt-1 w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 outline-none focus:border-brand"/>
-                <p id="cep-warn" class="hidden text-sm text-red-400 mt-1">CEP inválido.</p>
-              </div>
-              <div>
-                <label class="text-sm text-white/80">Rua *</label>
-                <input id="inp-street" type="text"
-                      class="mt-1 w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 outline-none focus:border-brand"/>
-              </div>
+    <!-- Modal do carrinho -->
+    <div id="cart-modal" class="fixed inset-0 z-50 hidden">
+      <div
+        id="cart-overlay"
+        class="absolute inset-0 bg-black/80 backdrop-blur-sm"
+      ></div>
 
-              <div>
-                <label class="text-sm text-white/80">Bairro *</label>
-                <input id="inp-neighborhood" type="text"
-                      class="mt-1 w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 outline-none focus:border-brand"/>
-              </div>
-              <div>
-                <label class="text-sm text-white/80">Cidade *</label>
-                <input id="inp-city" type="text"
-                      class="mt-1 w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 outline-none focus:border-brand"/>
-              </div>
+      <div class="relative h-full w-full grid place-items-center p-4">
+        <!-- painel com proporção controlada -->
+        <div
+          id="cart-panel"
+          class="card bg-[#0f121a] border-white/20 w-[min(92vw,720px)] max-h-[85vh] shadow-2xl will overflow-hidden rounded-2xl flex flex-col"
+        >
+          <!-- header fixo -->
+          <div
+            class="p-4 border-b border-white/10 flex items-center justify-between shrink-0"
+          >
+            <h3 class="font-semibold">Seu carrinho</h3>
+            <button id="close-modal-btn" class="btn-ghost smooth" data-ripple>
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+          </div>
 
-              <div>
-                <label class="text-sm text-white/80">UF *</label>
-                <input id="inp-uf" type="text" maxlength="2"
-                      class="mt-1 w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 outline-none uppercase focus:border-brand"/>
+          <!-- ========== ETAPA 1: Itens ==========
+            conteúdo rola -->
+          <div id="cart-step-1" class="flex-1 flex flex-col min-h-0">
+            <div id="cart-items" class="p-4 space-y-3 overflow-auto"></div>
+            <div
+              class="p-4 border-t border-white/10 flex items-center justify-between shrink-0"
+            >
+              <div class="text-white/80">
+                Subtotal:
+                <strong id="cart-total" class="text-white">R$ 0,00</strong>
               </div>
-              <div>
-                <label class="text-sm text-white/80">Número *</label>
-                <input id="inp-number" type="text"
-                      class="mt-1 w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 outline-none focus:border-brand"/>
-              </div>
-
-              <div class="md:col-span-2">
-                <label class="text-sm text-white/80">Complemento</label>
-                <input id="inp-complement" type="text"
-                      class="mt-1 w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 outline-none focus:border-brand"/>
-              </div>
-              <div class="md:col-span-2">
-                <label class="text-sm text-white/80">Referência</label>
-                <input id="inp-reference" type="text"
-                      class="mt-1 w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 outline-none focus:border-brand"/>
-              </div>
+              <button id="continue-btn" class="btn">Continuar compra</button>
             </div>
           </div>
 
-          <div class="p-4 border-t border-white/10 flex items-center justify-between shrink-0">
-            <button id="back-to-cart" class="btn-ghost">Voltar ao carrinho</button>
-            <button id="checkout-btn" class="btn"><i class="fa-brands fa-whatsapp"></i> Finalizar pedido</button>
+          <!-- ========== ETAPA 2: Endereço ==========
+            conteúdo rola -->
+          <div id="cart-step-2" class="hidden flex-1 flex flex-col min-h-0">
+            <div class="p-4 space-y-4 overflow-auto">
+              <h4 class="font-medium">Dados para entrega</h4>
+
+              <div class="grid md:grid-cols-2 gap-3">
+                <div>
+                  <label class="text-sm text-white/80">Nome completo *</label>
+                  <input
+                    id="inp-name"
+                    type="text"
+                    class="mt-1 w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 outline-none focus:border-brand"
+                  />
+                </div>
+                <div>
+                  <label class="text-sm text-white/80">WhatsApp *</label>
+                  <input
+                    id="inp-phone"
+                    type="text"
+                    placeholder="(00) 00000-0000"
+                    class="mt-1 w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 outline-none focus:border-brand"
+                  />
+                </div>
+
+                <div>
+                  <label class="text-sm text-white/80">CEP *</label>
+                  <input
+                    id="inp-cep"
+                    type="text"
+                    placeholder="00000-000"
+                    class="mt-1 w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 outline-none focus:border-brand"
+                  />
+                  <p id="cep-warn" class="hidden text-sm text-red-400 mt-1">
+                    CEP inválido.
+                  </p>
+                </div>
+                <div>
+                  <label class="text-sm text-white/80">Rua *</label>
+                  <input
+                    id="inp-street"
+                    type="text"
+                    class="mt-1 w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 outline-none focus:border-brand"
+                  />
+                </div>
+
+                <div>
+                  <label class="text-sm text-white/80">Bairro *</label>
+                  <input
+                    id="inp-neighborhood"
+                    type="text"
+                    class="mt-1 w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 outline-none focus:border-brand"
+                  />
+                </div>
+                <div>
+                  <label class="text-sm text-white/80">Cidade *</label>
+                  <input
+                    id="inp-city"
+                    type="text"
+                    class="mt-1 w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 outline-none focus:border-brand"
+                  />
+                </div>
+
+                <div>
+                  <label class="text-sm text-white/80">UF *</label>
+                  <input
+                    id="inp-uf"
+                    type="text"
+                    maxlength="2"
+                    class="mt-1 w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 outline-none uppercase focus:border-brand"
+                  />
+                </div>
+                <div>
+                  <label class="text-sm text-white/80">Número *</label>
+                  <input
+                    id="inp-number"
+                    type="text"
+                    class="mt-1 w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 outline-none focus:border-brand"
+                  />
+                </div>
+
+                <div class="md:col-span-2">
+                  <label class="text-sm text-white/80">Complemento</label>
+                  <input
+                    id="inp-complement"
+                    type="text"
+                    class="mt-1 w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 outline-none focus:border-brand"
+                  />
+                </div>
+                <div class="md:col-span-2">
+                  <label class="text-sm text-white/80">Referência</label>
+                  <input
+                    id="inp-reference"
+                    type="text"
+                    class="mt-1 w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 outline-none focus:border-brand"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="p-4 border-t border-white/10 flex items-center justify-between shrink-0"
+            >
+              <button id="back-to-cart" class="btn-ghost">
+                Voltar ao carrinho
+              </button>
+              <button id="to-payment" class="btn">
+                Avançar para pagamento
+              </button>
+            </div>
+          </div>
+
+          <!-- ========== ETAPA 3: Entrega & Pagamento ==========
+            conteúdo rola -->
+          <div id="cart-step-3" class="hidden flex-1 flex flex-col min-h-0">
+            <div class="p-4 space-y-4 overflow-auto">
+              <h4 class="font-medium">Entrega e pagamento</h4>
+
+              <!-- entrega/retirada -->
+              <div>
+                <p class="text-sm text-white/80 mb-2">Forma de recebimento</p>
+                <div class="grid md:grid-cols-2 gap-3">
+                  <label
+                    class="flex items-center gap-2 bg-white/10 border border-white/20 rounded-xl px-3 py-2 cursor-pointer"
+                  >
+                    <input
+                      type="radio"
+                      name="ship"
+                      value="delivery"
+                      class="accent-emerald-500"
+                      checked
+                    />
+                    <span>Entrega</span>
+                  </label>
+                  <label
+                    class="flex items-center gap-2 bg-white/10 border border-white/20 rounded-xl px-3 py-2 cursor-pointer"
+                  >
+                    <input
+                      type="radio"
+                      name="ship"
+                      value="pickup"
+                      class="accent-emerald-500"
+                    />
+                    <span>Retirar no local</span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- pagamento -->
+              <div>
+                <p class="text-sm text-white/80 mb-2">Forma de pagamento</p>
+                <div class="grid md:grid-cols-3 gap-3">
+                  <label
+                    class="flex items-center gap-2 bg-white/10 border border-white/20 rounded-xl px-3 py-2 cursor-pointer"
+                  >
+                    <input
+                      type="radio"
+                      name="pay"
+                      value="pix"
+                      class="accent-emerald-500"
+                      checked
+                    />
+                    <span>Pix</span>
+                  </label>
+                  <label
+                    class="flex items-center gap-2 bg-white/10 border border-white/20 rounded-xl px-3 py-2 cursor-pointer"
+                  >
+                    <input
+                      type="radio"
+                      name="pay"
+                      value="card"
+                      class="accent-emerald-500"
+                    />
+                    <span>Cartão</span>
+                  </label>
+                  <label
+                    class="flex items-center gap-2 bg-white/10 border border-white/20 rounded-xl px-3 py-2 cursor-pointer"
+                  >
+                    <input
+                      type="radio"
+                      name="pay"
+                      value="money"
+                      class="accent-emerald-500"
+                    />
+                    <span>Dinheiro</span>
+                  </label>
+                </div>
+
+                <div id="money-change-wrap" class="hidden mt-3">
+                  <label class="text-sm text-white/80"
+                    >Troco para quanto?</label
+                  >
+                  <input
+                    id="inp-change"
+                    type="text"
+                    placeholder="R$ 0,00"
+                    class="mt-1 w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 outline-none focus:border-brand"
+                  />
+                </div>
+              </div>
+
+              <!-- observações -->
+              <div>
+                <label class="text-sm text-white/80"
+                  >Observações do pedido</label
+                >
+                <textarea
+                  id="inp-notes"
+                  rows="3"
+                  class="mt-1 w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 outline-none focus:border-brand"
+                ></textarea>
+              </div>
+
+              <!-- resumo -->
+              <div class="grid grid-cols-2 gap-3">
+                <div class="bg-white/5 border border-white/10 rounded-xl p-3">
+                  <p class="text-white/60 text-sm">Subtotal</p>
+                  <p id="checkout-subtotal" class="font-semibold">R$ 0,00</p>
+                </div>
+                <div class="bg-white/5 border border-white/10 rounded-xl p-3">
+                  <p class="text-white/60 text-sm">Entrega</p>
+                  <p id="checkout-fee" class="font-semibold">R$ 0,00</p>
+                </div>
+                <div
+                  class="col-span-2 bg-white/5 border border-white/10 rounded-xl p-3"
+                >
+                  <p class="text-white/60 text-sm">Total</p>
+                  <p id="checkout-grand-total" class="text-xl font-semibold">
+                    R$ 0,00
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="p-4 border-t border-white/10 flex items-center justify-between shrink-0"
+            >
+              <button id="back-to-address" class="btn-ghost">Voltar</button>
+              <button id="checkout-btn" class="btn">
+                <i class="fa-brands fa-whatsapp"></i> Finalizar pedido
+              </button>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-  <script src="./script.js"></script>
-</body>
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/toastify-js"
+    ></script>
+    <script src="./script.js"></script>
+  </body>
 </html>

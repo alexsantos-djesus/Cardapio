@@ -3,23 +3,38 @@
 // ===================
 const menuGrid = document.getElementById("menu-grid");
 const chips = document.getElementById("category-chips");
+
 const cartBtn = document.getElementById("cart-btn");
 const cartModal = document.getElementById("cart-modal");
+const cartOverlay = document.getElementById("cart-overlay");
+const cartPanel = document.getElementById("cart-panel");
+const closeModalBtn = document.getElementById("close-modal-btn");
+
 const cartItemsContainer = document.getElementById("cart-items");
 const cartTotal = document.getElementById("cart-total");
-const closeModalBtn = document.getElementById("close-modal-btn");
 const cartCounter = document.getElementById("cart-count");
 const ctaWhatsapp = document.getElementById("cta-whatsapp");
 
-// Steps do checkout e formulário
+// Frete simples (ajuste à vontade)
+const DELIVERY_CONFIG = {
+  defaultFee: 8, // R$ 8,00 de entrega
+  freeAbove: 80, // frete grátis acima de R$ 80
+};
+
+// Steps do modal
 const step1 = document.getElementById("cart-step-1");
 const step2 = document.getElementById("cart-step-2");
+const step3 = document.getElementById("cart-step-3");
 const continueBtn = document.getElementById("continue-btn");
-const backBtn = document.getElementById("back-to-cart");
+const backToCartBtn = document.getElementById("back-to-cart");
+const toPaymentBtn = document.getElementById("to-payment");
+const backToAddressBtn = document.getElementById("back-to-address");
+const checkoutBtn = document.getElementById("checkout-btn");
+
+// Inputs da etapa 2 (endereço)
 const nameInput = document.getElementById("inp-name");
 const phoneInput = document.getElementById("inp-phone");
 const cepInput = document.getElementById("inp-cep");
-const cepBtn = document.getElementById("btn-cep");
 const streetInput = document.getElementById("inp-street");
 const neighInput = document.getElementById("inp-neighborhood");
 const cityInput = document.getElementById("inp-city");
@@ -27,13 +42,26 @@ const ufInput = document.getElementById("inp-uf");
 const numberInput = document.getElementById("inp-number");
 const compInput = document.getElementById("inp-complement");
 const refInput = document.getElementById("inp-reference");
+const cepWarn = document.getElementById("cep-warn");
 
-// Config (fácil de trocar no portfolio)
+// Etapa 3 (pagamento/entrega)
+const moneyChangeWrap = document.getElementById("money-change-wrap");
+const changeInput = document.getElementById("inp-change");
+const notesInput = document.getElementById("inp-notes");
+
+// Resumo etapa 3
+const elSubtotal = document.getElementById("checkout-subtotal");
+const elFee = document.getElementById("checkout-fee");
+const elGrand = document.getElementById("checkout-grand-total");
+
+// Config do WhatsApp
 const WHATS_PHONE = "+5571992620696";
 const currency = new Intl.NumberFormat("pt-BR", {
   style: "currency",
   currency: "BRL",
 });
+ctaWhatsapp &&
+  (ctaWhatsapp.href = `https://wa.me/${WHATS_PHONE.replace(/\D/g, "")}`);
 
 // ===================
 //        DATA
@@ -134,7 +162,6 @@ const TESTIMONIALS = [
 // ===================
 let activeCategory = "Todos";
 let cart = [];
-ctaWhatsapp.href = `https://wa.me/${WHATS_PHONE.replace(/\D/g, "")}`;
 
 // Reveal on scroll (com fallback)
 var observer = (function () {
@@ -167,14 +194,14 @@ const CATEGORIES = [
 //  CATEGORY CHIPS
 // ===================
 function renderChips() {
+  if (!chips) return;
   chips.innerHTML = CATEGORIES.map(
     (cat) => `
     <button class="chip smooth will hover:-translate-y-0.5 active:scale-95 ${
       cat === activeCategory ? "border-brand bg-white/10" : ""
     }" data-cat="${cat}">
       ${cat}
-    </button>
-  `
+    </button>`
   ).join("");
 }
 renderChips();
@@ -189,14 +216,15 @@ function filtered() {
 //  GRID
 // ===================
 function renderGrid() {
+  if (!menuGrid) return;
   const items = filtered()
     .map(
       (p) => `
     <article class="card group smooth will hover:-translate-y-1 hover:shadow-lg" data-animate="fade-up">
       <div class="w-full aspect-[4/3] bg-white/5 grid place-items-center overflow-hidden">
-        <img src="${p.image}" alt="${
-        p.name
-      }" loading="lazy" class="opacity-0 max-h-full max-w-full object-contain p-2 smooth t-slow group-hover:scale-105" onload="this.classList.add('opacity-100')">
+        <img src="${p.image}" alt="${p.name}" loading="lazy"
+             class="opacity-0 max-h-full max-w-full object-contain p-2 smooth t-slow group-hover:scale-105"
+             onload="this.classList.add('opacity-100')">
       </div>
       <div class="p-4">
         <div class="flex items-start justify-between gap-3">
@@ -227,7 +255,7 @@ function renderGrid() {
 renderGrid();
 
 // trocar de categoria
-chips.addEventListener("click", (e) => {
+chips?.addEventListener("click", (e) => {
   const el = e.target.closest("button[data-cat]");
   if (!el) return;
   activeCategory = el.dataset.cat;
@@ -244,36 +272,37 @@ chips.addEventListener("click", (e) => {
 // ===================
 //       CART
 // ===================
-function addToCart(id) {
+window.addToCart = function (id) {
   const product = PRODUCTS.find((p) => p.id === id);
   const idx = cart.findIndex((i) => i.id === id);
   if (idx >= 0) cart[idx].qty += 1;
   else cart.push({ ...product, qty: 1 });
   updateCart();
-
   cartCounter.classList.remove("animate-pulse-soft");
   void cartCounter.offsetWidth;
   cartCounter.classList.add("animate-pulse-soft");
-
   Toastify({
     text: `${product.name} adicionado!`,
     duration: 1500,
     gravity: "top",
     position: "right",
-    stopOnFocus: true,
     backgroundColor: "#16a34a",
   }).showToast();
-}
-function removeFromCart(id) {
+};
+window.removeFromCart = function (id) {
   cart = cart.filter((i) => i.id !== id);
   updateCart();
-}
-function changeQty(id, delta) {
+};
+window.changeQty = function (id, delta) {
   const it = cart.find((i) => i.id === id);
   if (!it) return;
   it.qty += delta;
-  if (it.qty <= 0) return removeFromCart(id);
+  if (it.qty <= 0) return window.removeFromCart(id);
   updateCart();
+};
+
+function cartSubtotalVal() {
+  return cart.reduce((s, i) => s + i.price * i.qty, 0);
 }
 
 function updateCart() {
@@ -295,11 +324,11 @@ function updateCart() {
         <div class="flex items-center gap-2">
           <button class="btn-ghost" data-ripple onclick="changeQty(${
             i.id
-          }, -1)"><i class="fa-solid fa-minus"></i></button>
+          },-1)"><i class="fa-solid fa-minus"></i></button>
           <span class="w-6 text-center">${i.qty}</span>
           <button class="btn-ghost" data-ripple onclick="changeQty(${
             i.id
-          }, 1)"><i class="fa-solid fa-plus"></i></button>
+          },1)"><i class="fa-solid fa-plus"></i></button>
           <span class="w-20 text-right font-semibold">${currency.format(
             i.price * i.qty
           )}</span>
@@ -307,36 +336,33 @@ function updateCart() {
             i.id
           })"><i class="fa-solid fa-trash"></i></button>
         </div>
-      </div>
-    `
+      </div>`
         )
         .join("")
     : `<p class="text-white/70">Seu carrinho está vazio.</p>`;
 
-  const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
-  cartTotal.textContent = currency.format(total);
+  const sub = cartSubtotalVal();
+  cartTotal.textContent = currency.format(sub);
+  continueBtn && (continueBtn.disabled = cart.length === 0);
 
-  // botão continuar habilita/desabilita
-  if (continueBtn) continueBtn.disabled = cart.length === 0;
+  // se estiver na etapa 3, mantém o resumo sincronizado
+  if (!step3.classList.contains("hidden")) updateTotalsUI();
 }
 
 // ===================
 //     MODAL (pop)
 // ===================
-const cartOverlay =
-  cartModal.querySelector("#cart-overlay") ||
-  cartModal.querySelector(".absolute.inset-0");
-const cartPanel =
-  cartModal.querySelector("#cart-panel") || cartModal.querySelector(".card");
-
-function goToStep(n) {
-  if (n === 1) {
-    step1.classList.remove("hidden");
-    step2.classList.add("hidden");
-  } else {
-    step1.classList.add("hidden");
-    step2.classList.remove("hidden");
-  }
+function gotoStep(n) {
+  step1.classList.toggle("hidden", n !== 1);
+  step2.classList.toggle("hidden", n !== 2);
+  step3.classList.toggle("hidden", n !== 3);
+  // reseta scroll do conteúdo rolável
+  [step1, step2, step3].forEach((s) => {
+    if (!s.classList.contains("hidden")) {
+      const sc = s.querySelector(".overflow-auto");
+      sc && (sc.scrollTop = 0);
+    }
+  });
 }
 
 function openCart() {
@@ -345,7 +371,7 @@ function openCart() {
   cartPanel?.classList.remove("animate-pop-out");
   cartOverlay?.classList.add("animate-fade-in");
   cartPanel?.classList.add("animate-pop");
-  goToStep(1);
+  gotoStep(1);
 }
 function closeCart() {
   cartOverlay?.classList.remove("animate-fade-in");
@@ -366,12 +392,9 @@ function closeCart() {
   }, 300);
 }
 
-// abre/fecha
-cartBtn.addEventListener("click", openCart);
-document.addEventListener("click", (e) => {
-  if (e.target.closest("#close-modal-btn")) closeCart();
-});
-cartModal.addEventListener("click", (e) => {
+cartBtn?.addEventListener("click", openCart);
+closeModalBtn?.addEventListener("click", closeCart);
+cartModal?.addEventListener("click", (e) => {
   if (e.target === cartModal || e.target === cartOverlay) closeCart();
 });
 document.addEventListener("keydown", (e) => {
@@ -379,126 +402,268 @@ document.addEventListener("keydown", (e) => {
     closeCart();
 });
 
-// navegar entre etapas
 continueBtn?.addEventListener("click", () => {
   if (cart.length === 0)
     return Toastify({ text: "Carrinho vazio.", duration: 1800 }).showToast();
-  goToStep(2);
+  gotoStep(2);
 });
-backBtn?.addEventListener("click", () => goToStep(1));
+backToCartBtn?.addEventListener("click", () => gotoStep(1));
+toPaymentBtn?.addEventListener("click", () => {
+  if (!validateStep2()) return;
+  gotoStep(3);
+  updateTotalsUI();
+});
+backToAddressBtn?.addEventListener("click", () => gotoStep(2));
 
-// ===== FORM/CEP/MÁSCARAS =====
-const digits = v => (v || "").replace(/\D/g, "");
+// ===== MÁSCARAS & CEP =====
+const digits = (v) => (v || "").replace(/\D/g, "");
 
-function formatPhone(v){
-  v = digits(v).slice(0,11);
-  if (v.length > 6) return `(${v.slice(0,2)}) ${v.slice(2,7)}-${v.slice(7)}`;
-  if (v.length > 2) return `(${v.slice(0,2)}) ${v.slice(2)}`;
+function formatPhone(v) {
+  v = digits(v).slice(0, 11);
+  if (v.length > 6) return `(${v.slice(0, 2)}) ${v.slice(2, 7)}-${v.slice(7)}`;
+  if (v.length > 2) return `(${v.slice(0, 2)}) ${v.slice(2)}`;
   return v;
 }
-phoneInput?.addEventListener("input", e => e.target.value = formatPhone(e.target.value));
+phoneInput?.addEventListener(
+  "input",
+  (e) => (e.target.value = formatPhone(e.target.value))
+);
 
-function formatCEP(v){
-  v = digits(v).slice(0,8);
-  return v.length > 5 ? v.slice(0,5) + "-" + v.slice(5) : v;
+function formatCEP(v) {
+  v = digits(v).slice(0, 8);
+  return v.length > 5 ? v.slice(0, 5) + "-" + v.slice(5) : v;
 }
 
-// debounce util
-function debounce(fn, ms=450){ let t; return (...a)=>{ clearTimeout(t); t=setTimeout(()=>fn(...a), ms);} }
+// debounce helper
+function debounce(fn, ms = 450) {
+  let t;
+  return (...a) => {
+    clearTimeout(t);
+    t = setTimeout(() => fn(...a), ms);
+  };
+}
+const debouncedCep = debounce(() => {
+  const raw = digits(cepInput.value);
+  if (raw.length === 8) lookupCep();
+}, 450);
 
-cepInput?.addEventListener("input", e => {
+cepInput?.addEventListener("input", (e) => {
   e.target.value = formatCEP(e.target.value);
   debouncedCep();
 });
-const debouncedCep = debounce(() => {
-  const raw = digits(cepInput.value);
-  if (raw.length === 8) lookupCep();      // busca automática
-}, 450);
+cepInput?.addEventListener("blur", () => {
+  if (digits(cepInput.value).length === 8) lookupCep();
+});
 
 async function lookupCep() {
   const cep = digits(cepInput.value);
-  const warn = document.getElementById("cep-warn");
-  if (cep.length !== 8) { warn.textContent="CEP inválido."; warn.classList.remove("hidden"); return; }
-  try{
+  if (cep.length !== 8) {
+    showCepWarn("CEP inválido.");
+    return;
+  }
+  try {
     const r = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
     const d = await r.json();
-    if (d.erro) { warn.textContent="CEP não encontrado."; warn.classList.remove("hidden"); return; }
-    warn.classList.add("hidden");
+    if (d.erro) {
+      showCepWarn("CEP não encontrado.");
+      return;
+    }
+    hideCepWarn();
     streetInput.value = d.logradouro || "";
-    neighInput.value  = d.bairro || "";
-    cityInput.value   = d.localidade || "";
-    ufInput.value     = (d.uf || "").toUpperCase();
+    neighInput.value = d.bairro || "";
+    cityInput.value = d.localidade || "";
+    ufInput.value = (d.uf || "").toUpperCase();
     numberInput.focus();
-  }catch{
-    warn.textContent="Falha ao buscar CEP."; warn.classList.remove("hidden");
+  } catch {
+    showCepWarn("Falha ao buscar CEP.");
   }
 }
-cepBtn?.addEventListener("click", lookupCep);
-cepInput?.addEventListener(
-  "blur",
-  () => digits(cepInput.value).length === 8 && lookupCep()
-);
+function showCepWarn(msg) {
+  cepWarn.textContent = msg;
+  cepWarn.classList.remove("hidden");
+}
+function hideCepWarn() {
+  cepWarn.classList.add("hidden");
+}
 
 // ===================
-//   CHECKOUT (WA)
+//   VALIDAÇÃO STEP 2
 // ===================
-function validateForm() {
+function validateStep2() {
   const req = [
     [nameInput, "Informe seu nome."],
     [phoneInput, "Informe seu WhatsApp."],
-    [cepInput, "Informe o CEP."],
-    [streetInput, "Informe a rua."],
-    [neighInput, "Informe o bairro."],
-    [cityInput, "Informe a cidade."],
-    [ufInput, "Informe a UF."],
-    [numberInput, "Informe o número."],
   ];
+
+  // se entrega estiver marcada, endereço é obrigatório
+  const ship = selected("ship") || "delivery";
+  if (ship === "delivery") {
+    req.push([cepInput, "Informe o CEP."]);
+    req.push([streetInput, "Informe a rua."]);
+    req.push([numberInput, "Informe o número."]);
+    req.push([neighInput, "Informe o bairro."]);
+    req.push([cityInput, "Informe a cidade."]);
+    req.push([ufInput, "Informe a UF."]);
+  }
+
   for (const [el, msg] of req) {
     if (!el || !el.value.trim()) {
+      markInvalid(el);
       Toastify({ text: msg, duration: 1800 }).showToast();
       el?.focus();
       return false;
     }
   }
+  function toWaLink(rawPhone, defaultCountry = "55") {
+    // Mantém apenas dígitos e garante prefixo do país (BR = 55)
+    let d = (rawPhone || "").replace(/\D/g, "");
+    if (!d.startsWith(defaultCountry)) d = defaultCountry + d;
+    return `https://wa.me/${d}`;
+  }
+  if (digits(phoneInput.value).length < 10) {
+    markInvalid(phoneInput);
+    Toastify({
+      text: "WhatsApp parece incompleto.",
+      duration: 1800,
+    }).showToast();
+    phoneInput.focus();
+    return false;
+  }
+  if (ship === "delivery" && digits(cepInput.value).length !== 8) {
+    markInvalid(cepInput);
+    Toastify({ text: "CEP inválido.", duration: 1800 }).showToast();
+    cepInput.focus();
+    return false;
+  }
   return true;
 }
+function markInvalid(input) {
+  input.classList.add("border-red-400");
+  setTimeout(() => input.classList.remove("border-red-400"), 1200);
+}
+function selected(name) {
+  return document.querySelector(`input[name="${name}"]:checked`)?.value || "";
+}
 
-function buildMessage() {
+// ===================
+//   ENTREGA/PAGAMENTO
+// ===================
+document.querySelectorAll('input[name="pay"]').forEach((r) => {
+  r.addEventListener("change", () => {
+    const show = selected("pay") === "money";
+    moneyChangeWrap.classList.toggle("hidden", !show);
+  });
+});
+document.querySelectorAll('input[name="ship"]').forEach((r) => {
+  r.addEventListener("change", updateTotalsUI);
+});
+
+function deliveryFeeVal() {
+  const method = selected("ship") || "delivery";
+  const sub = cartSubtotalVal();
+  if (method !== "delivery") return 0;
+  const { defaultFee, freeAbove } = DELIVERY_CONFIG;
+  return sub >= freeAbove ? 0 : defaultFee;
+}
+function updateTotalsUI() {
+  const sub = cartSubtotalVal();
+  const fee = deliveryFeeVal();
+  const grand = sub + fee;
+  elSubtotal && (elSubtotal.textContent = currency.format(sub));
+  elFee && (elFee.textContent = currency.format(fee));
+  elGrand && (elGrand.textContent = currency.format(grand));
+  cartTotal.textContent = currency.format(sub);
+}
+updateTotalsUI();
+
+// ===================
+//  CHECKOUT (Whats)
+// ===================
+checkoutBtn?.addEventListener("click", () => {
+  if (cart.length === 0)
+    return Toastify({ text: "Carrinho vazio.", duration: 1800 }).showToast();
+
+  if (!validateStep2()) {
+    gotoStep(2);
+    return;
+  }
+
+  const pay = selected("pay") || "pix"; // pix | card | money
+  const ship = selected("ship") || "delivery"; // delivery | pickup
+
+  const sub = cartSubtotalVal();
+  const fee = deliveryFeeVal();
+  const total = sub + fee;
+
+  // 👉 AQUI: cada item em UMA LINHA
   const items = cart
     .map((i) => `• ${i.qty}× ${i.name} — ${currency.format(i.price * i.qty)}`)
-    .join("%0A");
-  const total = currency.format(cart.reduce((s, i) => s + i.price * i.qty, 0));
+    .join("\n");
 
   const name = (nameInput.value || "").trim();
   const phone = (phoneInput.value || "").trim();
-  const cep = (cepInput.value || "").trim();
-  const rua = (streetInput.value || "").trim();
-  const num = (numberInput.value || "").trim();
-  const comp = (compInput.value || "").trim();
-  const bairro = (neighInput.value || "").trim();
-  const cidade = (cityInput.value || "").trim();
-  const uf = (ufInput.value || "").trim().toUpperCase();
-  const ref = (refInput.value || "").trim();
+  const clientWaLink = toWaLink(phone);
 
-  const header = `Pedido via Cardápio Demo`;
-  const pessoa = `Cliente: ${name} — WhatsApp: ${phone}`;
-  const end1 = `${rua}, ${num}${comp ? " - " + comp : ""}`;
-  const end2 = `${bairro} — ${cidade}/${uf}`;
-  const end3 = `CEP: ${cep}${ref ? " • Ref: " + ref : ""}`;
-  const address = `Endereço:%0A${end1}%0A${end2}%0A${end3}`;
+  // 👉 Endereço montado COM \n (sem %0A)
+  let addressBlock = "";
+  if (ship === "delivery") {
+    const cep = (cepInput.value || "").trim();
+    const rua = (streetInput.value || "").trim();
+    const num = (numberInput.value || "").trim();
+    const comp = (compInput.value || "").trim();
+    const bairro = (neighInput.value || "").trim();
+    const cidade = (cityInput.value || "").trim();
+    const uf = (ufInput.value || "").trim().toUpperCase();
+    const ref = (refInput.value || "").trim();
 
-  return `${header}%0A%0A${items}%0A%0ATotal: ${total}%0A%0A${pessoa}%0A${address}`;
-}
+    const end1 = `${rua}, ${num}${comp ? ` - ${comp}` : ""}`;
+    const end2 = `${bairro} — ${cidade}/${uf}`;
+    const end3 = `CEP: ${cep}${ref ? ` • Ref: ${ref}` : ""}`;
 
-document.getElementById("checkout-btn")?.addEventListener("click", () => {
-  if (!validateForm()) return;
+    addressBlock = `*Endereço*\n` + `${end1}\n${end2}\n${end3}\n`;
+  } else {
+    addressBlock = `*Recebimento*\nRetirar no local\n`;
+  }
+
+  const payTxt =
+    pay === "money"
+      ? `Dinheiro — troco para ${changeInput.value || "R$ 0,00"}`
+      : pay === "card"
+      ? "Cartão"
+      : "Pix";
+
+  const notes = (notesInput.value || "").trim();
+
+  // 👉 Mensagem inteira com \n
+  const msg = `*Pedido via Cardápio Demo*
+
+${items}
+
+Subtotal: ${currency.format(sub)}
+Entrega (${ship === "delivery" ? "Entrega" : "Retirada"}): ${currency.format(
+    fee
+  )}
+*Total:* ${currency.format(total)}
+
+*Pagamento:* ${payTxt}
+
+*Dados do cliente*
+Cliente: ${name}
+WhatsApp: ${phone}
+Contato: ${clientWaLink}
+
+${addressBlock}${notes ? `\n*Observações*\n${notes}\n` : ""}`;
+
   const url = `https://wa.me/${WHATS_PHONE.replace(
     /\D/g,
     ""
-  )}?text=${buildMessage()}`;
+  )}?text=${encodeURIComponent(msg)}`;
   window.open(url, "_blank");
+
+  // reset
   cart = [];
   updateCart();
+  gotoStep(1);
   closeCart();
   Toastify({
     text: "Pedido enviado!",
@@ -516,7 +681,6 @@ const depoContent = document.getElementById("depo-content");
 const depoText = document.getElementById("depo-text");
 const depoName = document.getElementById("depo-name");
 const depoRole = document.getElementById("depo-role");
-let depoSelected = null;
 
 function renderDepoAvatars() {
   if (!depoAvatars) return;
@@ -527,8 +691,7 @@ function renderDepoAvatars() {
         <img src="${t.avatar}" alt="${t.name}" class="w-full h-full object-cover" onerror="this.parentElement.classList.add('bg-white/10'); this.remove();">
       </div>
       <span class="block text-xs text-white/60 mt-1 text-center">${t.name}</span>
-    </button>
-  `
+    </button>`
   ).join("");
 
   depoAvatars.querySelectorAll("button").forEach((btn) => {
@@ -540,7 +703,6 @@ function renderDepoAvatars() {
 function selectTestimonial(id) {
   const t = TESTIMONIALS.find((x) => x.id === id);
   if (!t) return;
-  depoSelected = id;
   depoPlaceholder.classList.add("hidden");
   depoContent.classList.remove("hidden");
   depoContent.classList.remove("animate-fade-in");
@@ -591,13 +753,14 @@ document
   });
 })();
 const header = document.querySelector("header.sticky");
-if (header)
+if (header) {
   window.addEventListener("scroll", () => {
     const scrolled = (window.scrollY || 0) > 8;
     header.classList.toggle("shadow-lg", scrolled);
     header.classList.toggle("bg-white/10", scrolled);
     header.classList.toggle("backdrop-blur-md", scrolled);
   });
+}
 
 // ===== HERO PRESENTATION (stagger/parallax) =====
 (function heroIntro() {
@@ -662,3 +825,4 @@ if (header)
 // ===================
 renderDepoAvatars();
 updateCart();
+updateTotalsUI();

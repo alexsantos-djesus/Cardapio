@@ -78,7 +78,6 @@ Pensado para **portfolio/vendas**: rápido de adaptar, bonito e com animações 
     <img src="assets/depoimentos.png" alt="Seção de depoimentos" width="49%">
     <img src="assets/carrinho.png" alt="Carrinho" width="49%">
     <img src="assets/dados-pedido.png" alt="Dados pedido" width="49%">
-    <img src="assets/demo.jpeg" alt="Dados pedido" width="49%">
   </p>
 
 **MOBILE**
