@@ -212,89 +212,98 @@
     <div id="cart-overlay" class="absolute inset-0 bg-black/80 backdrop-blur-sm"></div>
 
     <div class="relative h-full w-full grid place-items-center p-4">
-      <div id="cart-panel" class="card bg-[#0f121a] border-white/20 max-w-2xl w-full shadow-2xl will relative z-10">
-        <div class="p-4 border-b border-white/10 flex items-center justify-between">
+      <!-- painel com proporção controlada -->
+      <div
+        id="cart-panel"
+        class="card bg-[#0f121a] border-white/20 w-[min(92vw,720px)] max-h-[85vh]
+              shadow-2xl will overflow-hidden rounded-2xl flex flex-col"
+      >
+        <!-- header fixo -->
+        <div class="p-4 border-b border-white/10 flex items-center justify-between shrink-0">
           <h3 class="font-semibold">Seu carrinho</h3>
           <button id="close-modal-btn" class="btn-ghost smooth" data-ripple>
             <i class="fa-solid fa-xmark"></i>
           </button>
         </div>
 
-        <!-- ETAPA 1: Itens -->
-        <div id="cart-step-1">
-          <div id="cart-items" class="p-4 space-y-3 max-h-[60vh] overflow-auto"></div>
-          <div class="p-4 border-t border-white/10 flex items-center justify-between">
+        <!-- ETAPA 1: Itens (conteúdo rola) -->
+        <div id="cart-step-1" class="flex-1 flex flex-col min-h-0">
+          <div id="cart-items" class="p-4 space-y-3 overflow-auto"></div>
+          <div class="p-4 border-t border-white/10 flex items-center justify-between shrink-0">
             <div class="text-white/80">
               Total: <strong id="cart-total" class="text-white">R$ 0,00</strong>
             </div>
-            <button id="continue-btn" class="btn">
-              Continuar compra
-            </button>
+            <button id="continue-btn" class="btn">Continuar compra</button>
           </div>
         </div>
 
-        <!-- ETAPA 2: Dados do cliente/entrega -->
-        <div id="cart-step-2" class="hidden">
-          <div class="p-4 space-y-4">
+        <!-- ETAPA 2: Dados (conteúdo rola) -->
+        <div id="cart-step-2" class="hidden flex-1 flex flex-col min-h-0">
+          <div class="p-4 space-y-4 overflow-auto">
             <h4 class="font-medium">Dados para entrega</h4>
 
             <div class="grid md:grid-cols-2 gap-3">
               <div>
                 <label class="text-sm text-white/80">Nome completo *</label>
-                <input id="inp-name" type="text" class="mt-1 w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 outline-none focus:border-brand" />
+                <input id="inp-name" type="text"
+                      class="mt-1 w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 outline-none focus:border-brand"/>
               </div>
               <div>
                 <label class="text-sm text-white/80">WhatsApp *</label>
-                <input id="inp-phone" type="text" placeholder="(00) 00000-0000" class="mt-1 w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 outline-none focus:border-brand" />
+                <input id="inp-phone" type="text" placeholder="(00) 00000-0000"
+                      class="mt-1 w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 outline-none focus:border-brand"/>
               </div>
 
               <div>
                 <label class="text-sm text-white/80">CEP *</label>
-                <div class="flex items-center gap-2">
-                  <input id="inp-cep" type="text" placeholder="00000-000" class="mt-1 w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 outline-none focus:border-brand" />
-                  <button id="btn-cep" type="button" class="btn-ghost">Buscar</button>
-                </div>
+                <input id="inp-cep" type="text" placeholder="00000-000"
+                      class="mt-1 w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 outline-none focus:border-brand"/>
                 <p id="cep-warn" class="hidden text-sm text-red-400 mt-1">CEP inválido.</p>
               </div>
               <div>
                 <label class="text-sm text-white/80">Rua *</label>
-                <input id="inp-street" type="text" class="mt-1 w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 outline-none focus:border-brand" />
+                <input id="inp-street" type="text"
+                      class="mt-1 w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 outline-none focus:border-brand"/>
               </div>
 
               <div>
                 <label class="text-sm text-white/80">Bairro *</label>
-                <input id="inp-neighborhood" type="text" class="mt-1 w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 outline-none focus:border-brand" />
+                <input id="inp-neighborhood" type="text"
+                      class="mt-1 w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 outline-none focus:border-brand"/>
               </div>
               <div>
                 <label class="text-sm text-white/80">Cidade *</label>
-                <input id="inp-city" type="text" class="mt-1 w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 outline-none focus:border-brand" />
+                <input id="inp-city" type="text"
+                      class="mt-1 w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 outline-none focus:border-brand"/>
               </div>
 
               <div>
                 <label class="text-sm text-white/80">UF *</label>
-                <input id="inp-uf" type="text" maxlength="2" class="mt-1 w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 outline-none uppercase focus:border-brand" />
+                <input id="inp-uf" type="text" maxlength="2"
+                      class="mt-1 w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 outline-none uppercase focus:border-brand"/>
               </div>
               <div>
                 <label class="text-sm text-white/80">Número *</label>
-                <input id="inp-number" type="text" class="mt-1 w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 outline-none focus:border-brand" />
+                <input id="inp-number" type="text"
+                      class="mt-1 w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 outline-none focus:border-brand"/>
               </div>
 
               <div class="md:col-span-2">
                 <label class="text-sm text-white/80">Complemento</label>
-                <input id="inp-complement" type="text" class="mt-1 w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 outline-none focus:border-brand" />
+                <input id="inp-complement" type="text"
+                      class="mt-1 w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 outline-none focus:border-brand"/>
               </div>
               <div class="md:col-span-2">
                 <label class="text-sm text-white/80">Referência</label>
-                <input id="inp-reference" type="text" class="mt-1 w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 outline-none focus:border-brand" />
+                <input id="inp-reference" type="text"
+                      class="mt-1 w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 outline-none focus:border-brand"/>
               </div>
             </div>
           </div>
 
-          <div class="p-4 border-t border-white/10 flex items-center justify-between">
+          <div class="p-4 border-t border-white/10 flex items-center justify-between shrink-0">
             <button id="back-to-cart" class="btn-ghost">Voltar ao carrinho</button>
-            <button id="checkout-btn" class="btn">
-              <i class="fa-brands fa-whatsapp"></i> Finalizar pedido
-            </button>
+            <button id="checkout-btn" class="btn"><i class="fa-brands fa-whatsapp"></i> Finalizar pedido</button>
           </div>
         </div>
       </div>

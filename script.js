@@ -387,54 +387,50 @@ continueBtn?.addEventListener("click", () => {
 });
 backBtn?.addEventListener("click", () => goToStep(1));
 
-// ===================
-//   FORM/CEP/MÁSCARAS
-// ===================
-const digits = (v) => (v || "").replace(/\D/g, "");
-function formatPhone(v) {
-  v = digits(v).slice(0, 11);
-  if (v.length > 6) return `(${v.slice(0, 2)}) ${v.slice(2, 7)}-${v.slice(7)}`;
-  if (v.length > 2) return `(${v.slice(0, 2)}) ${v.slice(2)}`;
+// ===== FORM/CEP/MÁSCARAS =====
+const digits = v => (v || "").replace(/\D/g, "");
+
+function formatPhone(v){
+  v = digits(v).slice(0,11);
+  if (v.length > 6) return `(${v.slice(0,2)}) ${v.slice(2,7)}-${v.slice(7)}`;
+  if (v.length > 2) return `(${v.slice(0,2)}) ${v.slice(2)}`;
   return v;
 }
-phoneInput?.addEventListener(
-  "input",
-  (e) => (e.target.value = formatPhone(e.target.value))
-);
-function formatCEP(v) {
-  v = digits(v).slice(0, 8);
-  return v.length > 5 ? v.slice(0, 5) + "-" + v.slice(5) : v;
+phoneInput?.addEventListener("input", e => e.target.value = formatPhone(e.target.value));
+
+function formatCEP(v){
+  v = digits(v).slice(0,8);
+  return v.length > 5 ? v.slice(0,5) + "-" + v.slice(5) : v;
 }
-cepInput?.addEventListener(
-  "input",
-  (e) => (e.target.value = formatCEP(e.target.value))
-);
+
+// debounce util
+function debounce(fn, ms=450){ let t; return (...a)=>{ clearTimeout(t); t=setTimeout(()=>fn(...a), ms);} }
+
+cepInput?.addEventListener("input", e => {
+  e.target.value = formatCEP(e.target.value);
+  debouncedCep();
+});
+const debouncedCep = debounce(() => {
+  const raw = digits(cepInput.value);
+  if (raw.length === 8) lookupCep();      // busca automática
+}, 450);
 
 async function lookupCep() {
   const cep = digits(cepInput.value);
   const warn = document.getElementById("cep-warn");
-  if (cep.length !== 8) {
-    warn.textContent = "CEP inválido.";
-    warn.classList.remove("hidden");
-    return;
-  }
-  try {
+  if (cep.length !== 8) { warn.textContent="CEP inválido."; warn.classList.remove("hidden"); return; }
+  try{
     const r = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
     const d = await r.json();
-    if (d.erro) {
-      warn.textContent = "CEP não encontrado.";
-      warn.classList.remove("hidden");
-      return;
-    }
+    if (d.erro) { warn.textContent="CEP não encontrado."; warn.classList.remove("hidden"); return; }
     warn.classList.add("hidden");
     streetInput.value = d.logradouro || "";
-    neighInput.value = d.bairro || "";
-    cityInput.value = d.localidade || "";
-    ufInput.value = (d.uf || "").toUpperCase();
+    neighInput.value  = d.bairro || "";
+    cityInput.value   = d.localidade || "";
+    ufInput.value     = (d.uf || "").toUpperCase();
     numberInput.focus();
-  } catch {
-    warn.textContent = "Falha ao buscar CEP.";
-    warn.classList.remove("hidden");
+  }catch{
+    warn.textContent="Falha ao buscar CEP."; warn.classList.remove("hidden");
   }
 }
 cepBtn?.addEventListener("click", lookupCep);
