@@ -59,6 +59,9 @@ Pensado para **portfolio/vendas**: rápido de adaptar, bonito e com animações 
   <img src="assets/dados-pedido.png" alt="Dados pedido — Cardápio Demo" width="980">
 </p>
 
+<p align="center">
+  <img src="assets/demostração.jpeg" alt="Demostração — Cardápio Demo" width="980">
+</p>
 
 **MOBILE**
 <p align="center">
@@ -81,6 +84,9 @@ Pensado para **portfolio/vendas**: rápido de adaptar, bonito e com animações 
   <img src="assets/dados-m.jpeg" alt="Dados pedido — Cardápio Demo" width="980">
 </p>
 
+<p align="center">
+  <img src="assets/demostração.jpeg" alt="Demostração — Cardápio Demo" width="980">
+</p>
 
 <details>
   <summary>Ver lado a lado (opcional)</summary>
@@ -93,6 +99,7 @@ Pensado para **portfolio/vendas**: rápido de adaptar, bonito e com animações 
     <img src="assets/depoimentos.png" alt="Seção de depoimentos" width="49%">
     <img src="assets/carrinho.png" alt="Carrinho" width="49%">
     <img src="assets/dados-pedido.png" alt="Dados pedido" width="49%">
+    <img src="assets/demostração.jpeg" alt="Dados pedido" width="49%">
   </p>
 
 
@@ -104,6 +111,7 @@ Pensado para **portfolio/vendas**: rápido de adaptar, bonito e com animações 
       <img src="assets/depoimentos-m.jpeg" alt="Seção de depoimentos" width="49%">
       <img src="assets/carrinho-m.jpeg" alt="Carrinho" width="49%">
       <img src="assets/dados-m.jpeg" alt="Dados pedido" width="49%">
+      <img src="assets/demostração.jpeg" alt="Dados pedido" width="49%">
     </p>
 </details>
 
