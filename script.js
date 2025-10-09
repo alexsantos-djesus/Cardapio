@@ -1,6 +1,4 @@
-// ===================
-//   CONFIG / ELEMENTS
-// ===================
+// CONFIG / ELEMENTS
 const menuGrid = document.getElementById("menu-grid");
 const chips = document.getElementById("category-chips");
 
@@ -15,7 +13,7 @@ const cartTotal = document.getElementById("cart-total");
 const cartCounter = document.getElementById("cart-count");
 const ctaWhatsapp = document.getElementById("cta-whatsapp");
 
-// Frete simples (ajuste à vontade)
+// Frete simples
 const DELIVERY_CONFIG = {
   defaultFee: 8,   // R$ 8,00 de entrega
   freeAbove: 80    // frete grátis acima de R$ 80
@@ -59,9 +57,7 @@ const WHATS_PHONE = "+5571992620696";
 const currency = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
 ctaWhatsapp && (ctaWhatsapp.href = `https://wa.me/${WHATS_PHONE.replace(/\D/g, "")}`);
 
-// ===================
-//        DATA
-// ===================
+// DATA
 const PRODUCTS = [
   { id:1, name:"Clássico da Casa", price:24.9, image:"assets/hamb-1.png", category:"Burgers", desc:"Pão brioche, blend 150g, queijo, alface e tomate." },
   { id:2, name:"Duplo Smash", price:31.9, image:"assets/hamb-2.png", category:"Burgers", desc:"Dois smash 90g, cheddar duplo e picles." },
@@ -79,13 +75,9 @@ const TESTIMONIALS = [
   { id:3, name:"Cliente 3", role:"Pizzaria da Praça", text:"Integração com WhatsApp agilizou muito o atendimento.", avatar:"assets/avatars/cliente-3.jpg" },
 ];
 
-// ===================
-//    STATE/HELPERS
-// ===================
+// STATE/HELPERS
 let activeCategory = "Todos";
 let cart = [];
-
-// Reveal on scroll (com fallback)
 var observer = (function () {
   if (!("IntersectionObserver" in window))
     return { observe() {}, unobserve() {} };
@@ -107,9 +99,7 @@ document.querySelectorAll("[data-animate]").forEach((el) => observer.observe(el)
 
 const CATEGORIES = ["Todos", ...Array.from(new Set(PRODUCTS.map((p) => p.category)))];
 
-// ===================
-//  CATEGORY CHIPS
-// ===================
+// CATEGORY CHIPS
 function renderChips() {
   if (!chips) return;
   chips.innerHTML = CATEGORIES.map(
@@ -127,9 +117,8 @@ function filtered() {
     : PRODUCTS.filter((p) => p.category === activeCategory);
 }
 
-// ===================
-//  GRID
-// ===================
+
+// GRID
 function renderGrid() {
   if (!menuGrid) return;
   const items = filtered().map(p => `
@@ -158,8 +147,6 @@ function renderGrid() {
   menuGrid.querySelectorAll("[data-animate]").forEach((el) => observer.observe(el));
 }
 renderGrid();
-
-// trocar de categoria
 chips?.addEventListener("click", (e) => {
   const el = e.target.closest("button[data-cat]");
   if (!el) return;
@@ -170,9 +157,8 @@ chips?.addEventListener("click", (e) => {
   menuGrid.addEventListener("animationend", () => menuGrid.classList.remove("animate-fade-in"), { once: true });
 });
 
-// ===================
-//       CART
-// ===================
+
+// CART
 window.addToCart = function(id) {
   const product = PRODUCTS.find((p) => p.id === id);
   const idx = cart.findIndex((i) => i.id === id);
@@ -221,19 +207,14 @@ function updateCart() {
   const sub = cartSubtotalVal();
   cartTotal.textContent = currency.format(sub);
   continueBtn && (continueBtn.disabled = cart.length === 0);
-
-  // se estiver na etapa 3, mantém o resumo sincronizado
   if (!step3.classList.contains("hidden")) updateTotalsUI();
 }
 
-// ===================
-//     MODAL (pop)
-// ===================
+// MODAL (pop)
 function gotoStep(n){
   step1.classList.toggle("hidden", n!==1);
   step2.classList.toggle("hidden", n!==2);
   step3.classList.toggle("hidden", n!==3);
-  // reseta scroll do conteúdo rolável
   [step1,step2,step3].forEach(s=>{
     if(!s.classList.contains("hidden")){
       const sc = s.querySelector(".overflow-auto");
@@ -277,7 +258,7 @@ toPaymentBtn?.addEventListener("click", () => {
 });
 backToAddressBtn?.addEventListener("click", () => gotoStep(2));
 
-// ===== MÁSCARAS & CEP =====
+// MÁSCARAS & CEP
 const digits = (v) => (v || "").replace(/\D/g, "");
 
 function formatPhone(v){
@@ -326,9 +307,7 @@ async function lookupCep(){
 function showCepWarn(msg){ cepWarn.textContent = msg; cepWarn.classList.remove("hidden"); }
 function hideCepWarn(){ cepWarn.classList.add("hidden"); }
 
-// ===================
-//   VALIDAÇÃO STEP 2
-// ===================
+// VALIDAÇÃO STEP 2
 function validateStep2(){
   const req = [
     [nameInput, "Informe seu nome."],
@@ -376,9 +355,7 @@ function selected(name){
   return document.querySelector(`input[name="${name}"]:checked`)?.value || "";
 }
 
-// ===================
-//   ENTREGA/PAGAMENTO
-// ===================
+// ENTREGA/PAGAMENTO
 document.querySelectorAll('input[name="pay"]').forEach(r=>{
   r.addEventListener("change", ()=>{
     const show = selected("pay") === "money";
@@ -413,9 +390,7 @@ function toWaLink(rawPhone, defaultCountry = "55") {
 }
 updateTotalsUI();
 
-// ===================
-//  CHECKOUT (Whats)
-// ===================
+// CHECKOUT (Whats)
 checkoutBtn?.addEventListener("click", () => {
   if (cart.length === 0)
     return Toastify({ text: "Carrinho vazio.", duration: 1800 }).showToast();
@@ -428,8 +403,6 @@ checkoutBtn?.addEventListener("click", () => {
   const sub  = cartSubtotalVal();
   const fee  = deliveryFeeVal();
   const total = sub + fee;
-
-  // 👉 AQUI: cada item em UMA LINHA
   const items = cart
     .map(i => `• ${i.qty}× ${i.name} — ${currency.format(i.price * i.qty)}`)
     .join("\n");
@@ -437,8 +410,6 @@ checkoutBtn?.addEventListener("click", () => {
   const name  = (nameInput.value  || "").trim();
   const phone = (phoneInput.value || "").trim();
   const clientWaLink = toWaLink(phone);
-
-  // 👉 Endereço montado COM \n (sem %0A)
   let addressBlock = "";
   if (ship === "delivery") {
     const cep    = (cepInput.value    || "").trim();
@@ -466,8 +437,6 @@ checkoutBtn?.addEventListener("click", () => {
     : (pay === "card" ? "Cartão" : "Pix");
 
   const notes = (notesInput.value || "").trim();
-
-  // 👉 Mensagem inteira com \n
   const msg = `*Pedido via Cardápio Demo*
 
 ${items}
@@ -498,9 +467,8 @@ ${addressBlock}${notes ? `\n*Observações*\n${notes}\n` : ""}`;
   Toastify({ text: "Pedido enviado!", duration: 2000, backgroundColor: "#16a34a" }).showToast();
 });
 
-// ===================
-//  DEPOIMENTOS
-// ===================
+// DEPOIMENTOS
+
 const depoAvatars = document.getElementById("depo-avatars");
 const depoPlaceholder = document.getElementById("depo-placeholder");
 const depoContent = document.getElementById("depo-content");
@@ -549,9 +517,7 @@ function selectTestimonial(id) {
   }
 }
 
-// ===================
-//  RIPPLE + HEADER
-// ===================
+// RIPPLE + HEADER
 document.querySelectorAll("[data-animate]").forEach((el) => observer.observe(el));
 (function initRipple(root = document) {
   root.querySelectorAll(".btn, .btn-ghost, [data-ripple]").forEach((btn) => {
@@ -581,7 +547,7 @@ if (header){
   });
 }
 
-// ===== HERO PRESENTATION (stagger/parallax) =====
+// HERO PRESENTATION (stagger/parallax)
 (function heroIntro() {
   const h = document.querySelector("[data-hero-title]");
   if (!h) return;
@@ -629,9 +595,7 @@ if (header){
   }
 })();
 
-// ===================
-//   INIT
-// ===================
+// INIT
 renderDepoAvatars();
 updateCart();
 updateTotalsUI();

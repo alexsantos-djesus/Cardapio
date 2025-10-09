@@ -17,51 +17,30 @@
   <!-- Tailwind output -->
   <link rel="stylesheet" href="./styles/output.css" />
 
-  <!-- META OG (preencha para o portfolio) -->
+  <!-- META OG -->
   <meta property="og:title" content="Cardápio Demo — Portfolio" />
   <meta property="og:description" content="Demonstração de cardápio digital com carrinho e checkout via WhatsApp." />
-  <meta property="og:image" content="./assets/cardapio.png" />
+  <meta property="og:image" content="./assets/cardapio1.png" />
   <meta name="theme-color" content="#16a34a" />
 
   <style>
     /* ===== HERO FX ===== */
-    @keyframes heroUp{0%{opacity:0;transform:translateY(16px) scale(.98)}100%{opacity:1;transform:translateY(0) scale(1)}}
-    @keyframes heroFade{0%{opacity:0}100%{opacity:1}}
-    @keyframes btnPop{0%{opacity:0;transform:translateY(10px) scale(.98)}100%{opacity:1;transform:translateY(0) scale(1)}}
-    @keyframes bgPan{0%{background-position:0% 50%}100%{background-position:200% 50%}}
-    @keyframes shine{0%{background-position:200% 0}100%{background-position:-200% 0}}
-    @keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
-
-    .hero-stagger .w{
-      display:inline-block; opacity:0; transform:translateY(16px) scale(.98);
-      animation:heroUp .7s cubic-bezier(.22,1,.36,1) both; animation-delay:var(--d,0ms);
-    }
+    @keyframes heroUp { 0%{opacity:0;transform:translateY(16px) scale(.98)}100%{opacity:1;transform:translateY(0) scale(1)} }
+    @keyframes heroFade { 0%{opacity:0}100%{opacity:1} }
+    @keyframes btnPop { 0%{opacity:0;transform:translateY(10px) scale(.98)}100%{opacity:1;transform:translateY(0) scale(1)} }
+    @keyframes bgPan { 0%{background-position:0% 50%}100%{background-position:200% 50%} }
+    @keyframes shine { 0%{background-position:200% 0}100%{background-position:-200% 0} }
+    @keyframes floatY { 0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)} }
+    .hero-stagger .w { display:inline-block; opacity:0; transform:translateY(16px) scale(.98); animation:heroUp .7s cubic-bezier(.22,1,.36,1) both; animation-delay:var(--d,0ms); }
     .hero-sub{opacity:0; animation:heroFade .7s ease .45s both}
-    .hero-cta > a{opacity:0; transform:translateY(8px) scale(.98)}
-    .hero-cta.is-in > a{animation:btnPop .6s cubic-bezier(.22,1,.36,1) both; animation-delay:var(--d,0ms)}
-
-    /* brilho/gradiente do destaque */
-    .hero-accent, .hero-accent .w{
-      background:linear-gradient(90deg,#10b981,#22c55e,#16a34a,#10b981);
-      -webkit-background-clip:text; background-clip:text; color:transparent;
-      background-size:200% auto; animation:bgPan 6s linear infinite;
-    }
-
-    /* indicador de scroll  */
-    .scroll-cue{height:28px; align-items:center}
-    .scroll-cue span{
-      width:20px;height:28px;border:2px solid rgba(255,255,255,.35);
-      border-radius:20px; position:relative; display:inline-block; opacity:.8
-    }
-    .scroll-cue span:after{
-      content:""; position:absolute; left:50%; top:6px; width:4px; height:6px; margin-left:-2px;
-      background:#fff; border-radius:2px; animation:floatY 1.6s ease-in-out infinite
-    }
-
-    /* leve parallax suaviza transição do bg */
-    section.bg-hero{transition:background-position .25s ease}
-
-    .btn[data-magnet]{transition:transform .18s ease; will-change:transform}
+    .hero-cta > a { opacity:0; transform:translateY(8px) scale(.98) }
+    .hero-cta.is-in > a { animation:btnPop .6s cubic-bezier(.22,1,.36,1) both; animation-delay:var(--d,0ms) }
+    .hero-accent, .hero-accent .w { background:linear-gradient(90deg,#10b981,#22c55e,#16a34a,#10b981); -webkit-background-clip:text; background-clip:text; color:transparent; background-size:200% auto; animation:bgPan 6s linear infinite; }
+    .scroll-cue { height:28px; align-items:center }
+    .scroll-cue span { width:20px;height:28px;border:2px solid rgba(255,255,255,.35); border-radius:20px; position:relative; display:inline-block; opacity:.8 }
+    .scroll-cue span:after { content:""; position:absolute; left:50%; top:6px; width:4px; height:6px; margin-left:-2px; background:#fff; border-radius:2px; animation:floatY 1.6s ease-in-out infinite }
+    section.bg-hero { transition:background-position .25s ease }
+    .btn[data-magnet] { transition:transform .18s ease; will-change:transform }
   </style>
 
 </head>
@@ -80,14 +59,11 @@
       </a>
       <nav class="hidden md:flex items-center gap-6 text-sm text-white/80">
         <a href="#menu" class="hover:text-white transition underline-anim smooth" data-ripple data-magnet>Cardápio</a>
-        <a href="#como-funciona" class="hover:text-white transition underline-anim smooth" data-ripple data-magnet>
-          Como funciona
-        </a>
+        <a href="#como-funciona" class="hover:text-white transition underline-anim smooth" data-ripple data-magnet> Como funciona </a>
         <a href="#depoimentos" class="hover:text-white transition underline-anim smooth">Depoimentos</a>
       </nav>
       <button id="cart-btn" class="btn smooth will hover:-translate-y-0.5" data-ripple>
-        <i class="fa-solid fa-cart-plus"></i>
-        Carrinho (<span id="cart-count">0</span>)
+        <i class="fa-solid fa-cart-plus"></i> Carrinho (<span id="cart-count">0</span>)
       </button>
     </div>
   </header>
@@ -97,8 +73,7 @@
     <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-[#0b0e14]"></div>
     <div class="container relative py-16 md:py-24">
       <div class="max-w-2xl" data-animate="fade-up">
-        <h1 class="text-4xl md:text-5xl font-bold leading-tight" data-hero-title>
-          Seu restaurante com um
+        <h1 class="text-4xl md:text-5xl font-bold leading-tight" data-hero-title> Seu restaurante com um
           <span class="hero-accent text-brand">cardápio digital</span>
           bonito, rápido e que vende.
         </h1>
@@ -108,11 +83,9 @@
         </p>
 
         <div class="mt-6 flex items-center gap-3 hero-cta" data-hero-cta>
-          <a href="#menu" class="btn smooth will hover:-translate-y-0.5" data-ripple>
-            <i class="fa-solid fa-utensils"></i> Ver cardápio
+          <a href="#menu" class="btn smooth will hover:-translate-y-0.5" data-ripple> <i class="fa-solid fa-utensils"></i> Ver cardápio
           </a>
-          <a href="#como-funciona" class="btn-ghost smooth will hover:-translate-y-0.5" data-ripple>
-            <i class="fa-solid fa-circle-play"></i> Como funciona
+          <a href="#como-funciona" class="btn-ghost smooth will hover:-translate-y-0.5" data-ripple> <i class="fa-solid fa-circle-play"></i> Como funciona
           </a>
         </div>
 
@@ -141,22 +114,19 @@
   <section class="py-14 bg-white/5 border-y border-white/10" id="como-funciona">
     <div class="container grid md:grid-cols-3 gap-6">
       <div class="card p-6 will smooth hover:-translate-y-1" data-animate="fade-up">
-        <div class="size-11 rounded-xl bg-brand/20 grid place-content-center mb-3 smooth will group-hover:scale-105">
-          <i class="fa-solid fa-list text-brand"></i>
+        <div class="size-11 rounded-xl bg-brand/20 grid place-content-center mb-3 smooth will group-hover:scale-105"> <i class="fa-solid fa-list text-brand"></i>
         </div>
         <h3 class="font-semibold text-lg">Escolha seus itens</h3>
         <p class="text-white/70 text-sm mt-1">Navegue pelas categorias e adicione seus favoritos ao carrinho.</p>
       </div>
       <div class="card p-6 will smooth hover:-translate-y-1" data-animate="fade-up">
-        <div class="size-11 rounded-xl bg-brand/20 grid place-content-center mb-3 smooth will group-hover:scale-105">
-          <i class="fa-solid fa-cart-shopping text-brand"></i>
+        <div class="size-11 rounded-xl bg-brand/20 grid place-content-center mb-3 smooth will group-hover:scale-105"> <i class="fa-solid fa-cart-shopping text-brand"></i>
         </div>
         <h3 class="font-semibold text-lg">Confira o pedido</h3>
         <p class="text-white/70 text-sm mt-1">Veja o resumo, altere quantidades e calcule o total.</p>
       </div>
       <div class="card p-6 will smooth hover:-translate-y-1" data-animate="fade-up">
-        <div class="size-11 rounded-xl bg-brand/20 grid place-content-center mb-3 smooth will group-hover:scale-105">
-          <i class="fa-brands fa-whatsapp text-brand"></i>
+        <div class="size-11 rounded-xl bg-brand/20 grid place-content-center mb-3 smooth will group-hover:scale-105"> <i class="fa-brands fa-whatsapp text-brand"></i>
         </div>
         <h3 class="font-semibold text-lg">Finalize no WhatsApp</h3>
         <p class="text-white/70 text-sm mt-1">Envio automático do pedido com endereço e observações.</p>
@@ -182,8 +152,7 @@
           <blockquote id="depo-content" class="hidden text-center">
             <i class="fa-solid fa-quote-left text-2xl opacity-60 mx-auto"></i>
             <p id="depo-text" class="mt-3 text-lg md:text-xl leading-relaxed text-white/90"></p>
-            <footer class="mt-4 text-sm text-white/60">
-              — <span id="depo-name"></span>, <span id="depo-role"></span>
+            <footer class="mt-4 text-sm text-white/60"> — <span id="depo-name"></span>, <span id="depo-role"></span>
             </footer>
           </blockquote>
         </div>
@@ -201,8 +170,7 @@
         <p class="font-semibold">Quer um igual pro seu negócio?</p>
         <p class="text-white/70 text-sm">Entre em contato e eu adapto com sua marca, cores e produtos.</p>
       </div>
-      <a id="cta-whatsapp" class="btn smooth will hover:-translate-y-0.5" href="#" target="_blank" rel="noopener" data-ripple>
-        <i class="fa-brands fa-whatsapp"></i> Falar no WhatsApp
+      <a id="cta-whatsapp" class="btn smooth will hover:-translate-y-0.5" href="#" target="_blank" rel="noopener" data-ripple><i class="fa-brands fa-whatsapp"></i> Falar no WhatsApp
       </a>
     </div>
   </footer>
@@ -215,9 +183,7 @@
       <!-- painel com proporção controlada -->
       <div
         id="cart-panel"
-        class="card bg-[#0f121a] border-white/20 w-[min(92vw,720px)] max-h-[85vh]
-              shadow-2xl will overflow-hidden rounded-2xl flex flex-col"
-      >
+        class="card bg-[#0f121a] border-white/20 w-[min(92vw,720px)] max-h-[85vh] shadow-2xl will overflow-hidden rounded-2xl flex flex-col" >
         <!-- header fixo -->
         <div class="p-4 border-b border-white/10 flex items-center justify-between shrink-0">
           <h3 class="font-semibold">Seu carrinho</h3>
@@ -226,7 +192,7 @@
           </button>
         </div>
 
-        <!-- ========== ETAPA 1: Itens ==========
+        <!-- ETAPA 1: Itens
             conteúdo rola -->
         <div id="cart-step-1" class="flex-1 flex flex-col min-h-0">
           <div id="cart-items" class="p-4 space-y-3 overflow-auto"></div>
@@ -238,7 +204,7 @@
           </div>
         </div>
 
-        <!-- ========== ETAPA 2: Endereço ==========
+        <!-- ETAPA 2: Endereço
             conteúdo rola -->
         <div id="cart-step-2" class="hidden flex-1 flex flex-col min-h-0">
           <div class="p-4 space-y-4 overflow-auto">
@@ -247,58 +213,48 @@
             <div class="grid md:grid-cols-2 gap-3">
               <div>
                 <label class="text-sm text-white/80">Nome completo *</label>
-                <input id="inp-name" type="text"
-                      class="mt-1 w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 outline-none focus:border-brand"/>
+                <input id="inp-name" type="text" class="mt-1 w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 outline-none focus:border-brand"/>
               </div>
               <div>
                 <label class="text-sm text-white/80">WhatsApp *</label>
-                <input id="inp-phone" type="text" placeholder="(00) 00000-0000"
-                      class="mt-1 w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 outline-none focus:border-brand"/>
+                <input id="inp-phone" type="text" placeholder="(00) 00000-0000" class="mt-1 w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 outline-none focus:border-brand"/>
               </div>
 
               <div>
                 <label class="text-sm text-white/80">CEP *</label>
-                <input id="inp-cep" type="text" placeholder="00000-000"
-                      class="mt-1 w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 outline-none focus:border-brand"/>
+                <input id="inp-cep" type="text" placeholder="00000-000" class="mt-1 w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 outline-none focus:border-brand"/>
                 <p id="cep-warn" class="hidden text-sm text-red-400 mt-1">CEP inválido.</p>
               </div>
               <div>
                 <label class="text-sm text-white/80">Rua *</label>
-                <input id="inp-street" type="text"
-                      class="mt-1 w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 outline-none focus:border-brand"/>
+                <input id="inp-street" type="text" class="mt-1 w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 outline-none focus:border-brand"/>
               </div>
 
               <div>
                 <label class="text-sm text-white/80">Bairro *</label>
-                <input id="inp-neighborhood" type="text"
-                      class="mt-1 w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 outline-none focus:border-brand"/>
+                <input id="inp-neighborhood" type="text" class="mt-1 w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 outline-none focus:border-brand"/>
               </div>
               <div>
                 <label class="text-sm text-white/80">Cidade *</label>
-                <input id="inp-city" type="text"
-                      class="mt-1 w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 outline-none focus:border-brand"/>
+                <input id="inp-city" type="text" class="mt-1 w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 outline-none focus:border-brand"/>
               </div>
 
               <div>
                 <label class="text-sm text-white/80">UF *</label>
-                <input id="inp-uf" type="text" maxlength="2"
-                      class="mt-1 w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 outline-none uppercase focus:border-brand"/>
+                <input id="inp-uf" type="text" maxlength="2" class="mt-1 w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 outline-none uppercase focus:border-brand"/>
               </div>
               <div>
                 <label class="text-sm text-white/80">Número *</label>
-                <input id="inp-number" type="text"
-                      class="mt-1 w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 outline-none focus:border-brand"/>
+                <input id="inp-number" type="text" class="mt-1 w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 outline-none focus:border-brand"/>
               </div>
 
               <div class="md:col-span-2">
                 <label class="text-sm text-white/80">Complemento</label>
-                <input id="inp-complement" type="text"
-                      class="mt-1 w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 outline-none focus:border-brand"/>
+                <input id="inp-complement" type="text" class="mt-1 w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 outline-none focus:border-brand"/>
               </div>
               <div class="md:col-span-2">
                 <label class="text-sm text-white/80">Referência</label>
-                <input id="inp-reference" type="text"
-                      class="mt-1 w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 outline-none focus:border-brand"/>
+                <input id="inp-reference" type="text" class="mt-1 w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 outline-none focus:border-brand"/>
               </div>
             </div>
           </div>
@@ -309,7 +265,7 @@
           </div>
         </div>
 
-        <!-- ========== ETAPA 3: Entrega & Pagamento ==========
+        <!-- ETAPA 3: Entrega & Pagamento
             conteúdo rola -->
         <div id="cart-step-3" class="hidden flex-1 flex flex-col min-h-0">
           <div class="p-4 space-y-4 overflow-auto">
@@ -350,16 +306,14 @@
 
               <div id="money-change-wrap" class="hidden mt-3">
                 <label class="text-sm text-white/80">Troco para quanto?</label>
-                <input id="inp-change" type="text" placeholder="R$ 0,00"
-                      class="mt-1 w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 outline-none focus:border-brand"/>
+                <input id="inp-change" type="text" placeholder="R$ 0,00" class="mt-1 w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 outline-none focus:border-brand"/>
               </div>
             </div>
 
             <!-- observações -->
             <div>
               <label class="text-sm text-white/80">Observações do pedido</label>
-              <textarea id="inp-notes" rows="3"
-                        class="mt-1 w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 outline-none focus:border-brand"></textarea>
+              <textarea id="inp-notes" rows="3" class="mt-1 w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 outline-none focus:border-brand"></textarea>
             </div>
 
             <!-- resumo -->
@@ -387,8 +341,6 @@
       </div>
     </div>
   </div>
-
-
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
   <script src="./script.js"></script>
 </body>
