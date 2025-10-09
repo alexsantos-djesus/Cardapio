@@ -53,7 +53,7 @@ const elFee = document.getElementById("checkout-fee");
 const elGrand = document.getElementById("checkout-grand-total");
 
 // Config do WhatsApp
-const WHATS_PHONE = "+5571992620696";
+const WHATS_PHONE = "+5571999999999";
 const currency = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
 ctaWhatsapp && (ctaWhatsapp.href = `https://wa.me/${WHATS_PHONE.replace(/\D/g, "")}`);
 
